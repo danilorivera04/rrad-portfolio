@@ -6,7 +6,7 @@ const Header = () => {
     <>
       <header className="header">
         <div className="logo">
-          <img className="logo-rrad" src="./public/logo.png"
+          <img className="logo-rrad" src="./logo.png"
             alt="Logo de la marca" />
           <div className="logo-texto">
             <h2 className="titulo">Danilo Rivera</h2>
