@@ -1,5 +1,6 @@
 import "./Header.css";
 import DarkModeSwitch from "../DarkModeSwitch";
+import { Link } from "react-router-dom";
 
 // Encabezado principal con marca, navegacion y selector de tema.
 const Header = () => {
@@ -20,6 +21,8 @@ const Header = () => {
           <a href="#trabajos">Trabajos</a>
           <a href="#acerca-de">Acerca de</a>
           <a href="#contacto">Contacto</a>
+          <Link to="/cv">Mi CV</Link>
+
         </nav>
         <DarkModeSwitch></DarkModeSwitch>
       </header>

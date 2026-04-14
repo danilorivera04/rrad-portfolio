@@ -1,6 +1,6 @@
 .dark-mode {
     /* Contenedor del switch de tema */
-    background: var(--shade-2);
+    background: var(--switch-track);
 
     display: flex;
     justify-content: flex-end;
@@ -20,19 +20,19 @@
         align-items: center;
         justify-content: center;
         border-radius: 100px;
-        color: var(--shade-7);
+        color: var(--switch-icon);
 
         &.active {
-            background: #072537;
-            border: 3px solid var(--shade-2);
+            background: var(--switch-active-bg);
+            border: 3px solid var(--switch-active-border);
         }
 
         &.sol.active svg {
-            color: #dbff00;
+            color: var(--switch-sun);
         }
 
         &.luna.active svg {
-            color: #fff;
+            color: var(--switch-moon);
         }
     }
 }

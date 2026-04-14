@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap');
+
 /* Reset base para mantener consistencia de caja y espaciados */
 *,
 *::after,
@@ -19,13 +21,33 @@
   --shade-8: #404040;
   --shade-9: #0D0D0D;
   --shade-10: #000000;
-  --primario: #D83A3A;
-  --primario-hover: #bf3030
+
+  /* Tipografias compartidas en toda la app */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Merriweather', Georgia, serif;
+  --font-sans-cv: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display-cv: 'DM Serif Display', Georgia, serif;
+
+  /* Colores de marca compartidos */
+  --brand-accent: #D83A3A;
+  --brand-accent-strong: #bf3030;
+
+  /* Tokens compartidos del switch */
+  --switch-track: #d9d9d9;
+  --switch-icon: #595959;
+  --switch-active-bg: #072537;
+  --switch-active-border: #d9d9d9;
+  --switch-sun: #dbff00;
+  --switch-moon: #ffffff;
+
+  /* Alias de compatibilidad con estilos existentes */
+  --primario: var(--brand-accent);
+  --primario-hover: var(--brand-accent-strong);
 }
 
 body {
   /* Tipografia y colores base del sitio */
-  font-family: 'Inter', serif;
+  font-family: var(--font-sans);
   background: var(--shade-1);
   color: var(--shade-9);
 
@@ -100,7 +122,7 @@ a {
     align-items: center;
 
     .titulo {
-      font-family: "Merriweather", serif;
+      font-family: var(--font-display);
       color: var(--shade-8);
       font-size: 22px;
       font-weight: 700;

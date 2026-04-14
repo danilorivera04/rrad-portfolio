@@ -20,7 +20,7 @@
 
             .titulo {
                 font-size: 34px;
-                font-family: "Merriweather", serif;
+                font-family: var(--font-display);
                 color: var(--shade-8);
 
                 .dark & {

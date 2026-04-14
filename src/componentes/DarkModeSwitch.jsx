@@ -1,40 +1,63 @@
 import "./DarkModeSwitch.css";
 import { useState, useEffect } from "react";
 
-const DarkModeSwitch = () => {
+const DarkModeSwitch = ({
+    checked,
+    onChange,
+    name = "dark-mode",
+    id = "dark-mode",
+    className = "",
+    persistKey = "dark-mode",
+    useBodyClass = true,
+}) => {
+
+    const isControlled = typeof checked === "boolean";
 
     // Toma el tema guardado en localStorage para mantener preferencia entre recargas.
-    const estadoInicial = JSON.parse(localStorage.getItem("dark-mode") || false);
+    const estadoInicial = JSON.parse(localStorage.getItem(persistKey) || false);
     // Estado que controla si el sitio está en modo oscuro o claro.
     const [darkMode, setDarkMode] = useState(estadoInicial);
+    const currentValue = isControlled ? checked : darkMode;
 
     // Alterna el estado y lo persiste en localStorage.
     const toggleDarkMode = () => {
-        setDarkMode(!darkMode);
+        const nextValue = !currentValue;
 
-        localStorage.setItem("dark-mode", !darkMode)
+        if (!isControlled) {
+            setDarkMode(nextValue);
+            localStorage.setItem(persistKey, nextValue);
+        }
+
+        if (onChange) {
+            onChange(nextValue);
+        }
     };
 
     // Aplica o remueve la clase "dark" en <body> para activar estilos globales de tema.
     useEffect(() => {
-        if (darkMode) {
+        if (!useBodyClass) {
+            return;
+        }
+
+        if (currentValue) {
             document.body.classList.add("dark");
         } else {
             document.body.classList.remove("dark");
         }
-    }, [darkMode]);
+    }, [currentValue, useBodyClass]);
 
     return (
         <>
             {/* Switch visual del tema: input oculto + iconos de sol y luna */}
-            <label className="dark-mode">
+            <label className={`dark-mode ${className}`.trim()}>
                 <input
                     type="checkbox"
-                    name="dark-mode"
-                    id="dark-mode"
+                    name={name}
+                    id={id}
+                    checked={currentValue}
                     onChange={toggleDarkMode}
                 />
-                <span className={`icono sol ${!darkMode ? "active" : ""}`}>
+                <span className={`icono sol ${!currentValue ? "active" : ""}`}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -46,7 +69,7 @@ const DarkModeSwitch = () => {
                     </svg>
                 </span>
 
-                <span className={`icono luna ${darkMode ? "active" : ""}`}>
+                <span className={`icono luna ${currentValue ? "active" : ""}`}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"

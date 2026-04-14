@@ -46,7 +46,7 @@
     }
 
     .titulo {
-        font-family: 'Merriweather', serif;
+        font-family: var(--font-display);
         font-size: 50px;
         font-weight: 700;
         color: #fff;

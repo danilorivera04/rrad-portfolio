@@ -44,7 +44,7 @@
                 border-radius: 5px;
                 border: none;
                 font-size: 16px;
-                font-family: 'Inter', sans-serif;
+                font-family: var(--font-sans);
 
             }
 

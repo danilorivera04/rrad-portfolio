@@ -1,0 +1,542 @@
+/* Variables del tema oscuro del CV (por defecto). */
+.cv-view,
+.cv-view[data-theme='dark'] {
+  --bg-page: #0d1117;
+  --bg-card: #161c26;
+  --bg-header: #1e2736;
+  --bg-aside: rgba(13, 17, 23, 0.45);
+  --bg-chip: #273044;
+  --bg-date: #273044;
+  --border: #2e3a50;
+  --orange: var(--brand-accent);
+  --orange-dim: rgba(232, 82, 42, 0.08);
+  --orange-border: rgba(232, 82, 42, 0.22);
+  --text-1: #f0f4ff;
+  --text-2: #8fa3c0;
+  --text-3: #506070;
+  --glow: rgba(232, 82, 42, 0.12);
+  --shadow: 0 4px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Variables del tema claro del CV. */
+.cv-view[data-theme='light'] {
+  --bg-page: #f0ede8;
+  --bg-card: #ffffff;
+  --bg-header: #f7f5f2;
+  --bg-aside: rgba(240, 237, 232, 0.55);
+  --bg-chip: #f0ede8;
+  --bg-date: #f0ede8;
+  --border: #ddd9d3;
+  --orange: var(--brand-accent-strong);
+  --orange-dim: rgba(200, 67, 28, 0.07);
+  --orange-border: rgba(200, 67, 28, 0.2);
+  --text-1: #0f0f0f;
+  --text-2: #4a4a4a;
+  --text-3: #888880;
+  --glow: rgba(200, 67, 28, 0.07);
+  --shadow: 0 4px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Lienzo general de la vista CV. */
+.cv-view {
+  font-family: var(--font-sans-cv);
+  background: var(--bg-page);
+  color: var(--text-1);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem 5rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Barra superior con acciones del CV. */
+.cv-view .toolbar {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding: 0 4px;
+  gap: 10px;
+}
+
+.cv-view .toolbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.cv-view .brand-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.cv-view .brand-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.cv-view .brand-text span {
+  color: var(--orange);
+}
+
+.cv-view .toolbar-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Sistema de botones de la toolbar. */
+.cv-view .btn {
+  font-family: var(--font-sans-cv);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: 8px;
+  padding: 9px 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.18s;
+  border: none;
+  text-decoration: none;
+}
+
+.cv-view .btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-2);
+}
+
+.cv-view .btn-outline:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.cv-view .btn-primary {
+  background: var(--orange);
+  color: #fff;
+}
+
+.cv-view .btn-primary:hover {
+  filter: brightness(0.88);
+}
+
+.cv-view .btn-loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Contenedor completo que se exporta a PDF. */
+.cv-view #cv-page {
+  width: 100%;
+  max-width: 880px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+/* Cabecera de presentacion. */
+.cv-view .cv-header {
+  background: var(--bg-header);
+  padding: 15px 60px 44px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.cv-view .cv-header::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cv-view .header-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: end;
+  position: relative;
+}
+
+.cv-view .header-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  background: var(--orange-dim);
+  border: 1px solid var(--orange-border);
+  border-radius: 100px;
+  padding: 4px 12px;
+  margin-bottom: 16px;
+}
+
+.cv-view .header-name {
+  font-family: var(--font-display-cv);
+  font-size: 50px;
+  line-height: 1;
+  color: var(--text-1);
+  letter-spacing: -0.01em;
+}
+
+.cv-view .header-sub {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--orange);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.cv-view .header-location {
+  font-size: 13px;
+  color: var(--text-3);
+  margin-top: 8px;
+}
+
+.cv-view .header-contacts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.cv-view .contact-item {
+  font-size: 12.5px;
+  color: var(--text-2);
+  text-decoration: none;
+}
+
+.cv-view .contact-item:hover {
+  color: var(--orange);
+}
+
+/* Layout de dos columnas: contenido + lateral. */
+.cv-view .cv-body {
+  display: grid;
+  grid-template-columns: 1fr 256px;
+}
+
+.cv-view .cv-main {
+  padding: 44px 52px 52px 60px;
+  border-right: 1px solid var(--border);
+}
+
+.cv-view .cv-aside {
+  padding: 44px 36px 52px;
+  background: var(--bg-aside);
+}
+
+/* Bloques semanticos del contenido principal. */
+.cv-view .section {
+  margin-bottom: 44px;
+}
+
+.cv-view .section:last-child {
+  margin-bottom: 0;
+}
+
+.cv-view .section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cv-view .section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.cv-view .summary-text {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-2);
+  border-left: 2px solid var(--orange);
+  padding-left: 18px;
+}
+
+/* Tarjetas de experiencia laboral/profesional. */
+.cv-view .exp-item {
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cv-view .exp-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.cv-view .exp-role {
+  font-family: var(--font-display-cv);
+  font-size: 19px;
+  color: var(--text-1);
+  line-height: 1.2;
+}
+
+.cv-view .exp-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 6px 0 10px;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.cv-view .exp-company {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-3);
+}
+
+.cv-view .exp-date {
+  font-size: 11.5px;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+  background: var(--bg-date);
+  padding: 2px 9px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.cv-view .exp-desc {
+  font-size: 13.5px;
+  font-weight: 300;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.cv-view .exp-tags {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cv-view .exp-tag {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--orange);
+  background: var(--orange-dim);
+  border: 1px solid var(--orange-border);
+  border-radius: 4px;
+  padding: 3px 9px;
+}
+
+/* Listado de certificaciones. */
+.cv-view .cert-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+  align-items: flex-start;
+}
+
+.cv-view .cert-num {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--orange);
+  background: var(--orange-dim);
+  border: 1px solid var(--orange-border);
+  border-radius: 4px;
+  padding: 2px 7px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  letter-spacing: 0.05em;
+}
+
+.cv-view .cert-name {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-1);
+  line-height: 1.4;
+}
+
+.cv-view .cert-issuer {
+  font-size: 11.5px;
+  color: var(--text-3);
+  margin-top: 2px;
+}
+
+/* Secciones del panel lateral. */
+.cv-view .aside-section {
+  margin-bottom: 34px;
+}
+
+.cv-view .aside-section:last-child {
+  margin-bottom: 0;
+}
+
+.cv-view .aside-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cv-view .edu-degree {
+  font-family: var(--font-display-cv);
+  font-size: 16px;
+  color: var(--text-1);
+  line-height: 1.25;
+  margin-bottom: 5px;
+}
+
+.cv-view .edu-school {
+  font-size: 12.5px;
+  color: var(--text-2);
+  margin-bottom: 4px;
+}
+
+.cv-view .edu-year {
+  font-size: 11.5px;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+}
+
+.cv-view .skill-chip {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-2);
+  background: var(--bg-chip);
+  border-radius: 5px;
+  padding: 4px 10px;
+  margin: 3px 3px 3px 0;
+  border: 1px solid var(--border);
+}
+
+.cv-view .lang-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.cv-view .lang-name {
+  font-weight: 400;
+  color: var(--text-1);
+}
+
+.cv-view .lang-level {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--orange);
+  background: var(--orange-dim);
+  border: 1px solid var(--orange-border);
+  padding: 2px 9px;
+  border-radius: 4px;
+}
+
+/* Pie de la tarjeta CV. */
+.cv-view .cv-footer {
+  border-top: 1px solid var(--border);
+  padding: 16px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-header);
+}
+
+.cv-view .footer-note {
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.06em;
+}
+
+.cv-view .footer-link {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--orange);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.cv-view .footer-link:hover {
+  text-decoration: underline;
+}
+
+/* Ajustes responsivos para tablet/movil. */
+@media screen and (max-width: 900px) {
+  .cv-view .toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cv-view .toolbar-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .cv-view .cv-header,
+  .cv-view .cv-main,
+  .cv-view .cv-aside,
+  .cv-view .cv-footer {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  .cv-view .header-inner,
+  .cv-view .cv-body {
+    grid-template-columns: 1fr;
+  }
+
+  .cv-view .header-contacts {
+    align-items: flex-start;
+  }
+
+  .cv-view .cv-main {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cv-view .cv-footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
