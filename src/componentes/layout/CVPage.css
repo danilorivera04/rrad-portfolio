@@ -56,6 +56,8 @@ body {
     padding: 2rem 1rem 3rem;
     transition: background 0.3s, color 0.3s;
     box-sizing: border-box;
+    --header-side-top-offset: 50px;
+    --header-side-top-offset-export: 6px;
 }
 
 /* Barra superior con acciones del CV. */
@@ -187,10 +189,28 @@ body {
 
 .cv-view .header-inner {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
     gap: 28px;
-    align-items: end;
+    align-items: start;
     position: relative;
+}
+
+.cv-view .header-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 100%;
+}
+
+.cv-view .header-social {
+    display: flex;
+    justify-content: center;
+}
+
+/* Ajusta este offset para subir o bajar el bloque derecho del header (Social + Personal Data). */
+.cv-view .header-social,
+.cv-view .header-contacts {
+    margin-top: var(--header-side-top-offset, 0px);
 }
 
 .cv-view .header-tag {
@@ -244,7 +264,32 @@ body {
     flex-direction: column;
     align-items: flex-end;
     gap: 8px;
-    margin-bottom: 4px;
+}
+
+.cv-view.is-exporting .header-social,
+.cv-view.is-exporting .header-contacts {
+    margin-top: var(--header-side-top-offset-export, 0px);
+}
+
+.cv-view.is-exporting .social-block {
+    margin-top: 0;
+}
+
+.cv-view .social-block-media {
+    align-items: center;
+}
+
+.cv-view .social-block-media .social-title {
+    text-align: center;
+}
+
+.cv-view .social-block-media .social-links {
+    justify-content: center;
+    max-width: 290px;
+}
+
+.cv-view .social-block-personal {
+    align-items: flex-end;
 }
 
 .cv-view .social-title {
@@ -639,6 +684,7 @@ body {
 }
 
 .cv-view.is-exporting .header-inner {
+    grid-template-columns: 1fr auto auto;
     gap: 8px;
 }
 
@@ -662,6 +708,10 @@ body {
 .cv-view.is-exporting .social-links {
     gap: 2px;
     max-width: 240px;
+}
+
+.cv-view.is-exporting .social-block-media .social-links {
+    max-width: 190px;
 }
 
 .cv-view.is-exporting .social-link {
@@ -846,14 +896,24 @@ body {
         grid-template-columns: 1fr;
     }
 
+    .cv-view .header-social {
+        justify-content: flex-start;
+    }
+
     .cv-view .header-contacts {
         align-items: flex-start;
     }
 
+    .cv-view .social-block-media,
+    .cv-view .social-block-personal,
     .cv-view .social-block,
     .cv-view .social-links {
         align-items: flex-start;
         justify-content: flex-start;
+    }
+
+    .cv-view .social-block-media .social-title {
+        text-align: left;
     }
 
     .cv-view .cv-main {

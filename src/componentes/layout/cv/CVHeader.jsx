@@ -20,7 +20,7 @@ const CVHeader = ({ header, socialLinks, personalData, contactLinks }) => {
     return (
         <header className="cv-header">
             <div className="header-inner">
-                <div>
+                <div className="header-main">
                     <h1 className="header-name">
                         {header.name[0]}
                         <br />
@@ -30,8 +30,8 @@ const CVHeader = ({ header, socialLinks, personalData, contactLinks }) => {
                     <p className="header-location">{header.location}</p>
                 </div>
 
-                <div className="header-contacts">
-                    <div className="social-block">
+                <div className="header-social">
+                    <div className="social-block social-block-media">
                         <p className="social-title">Social Media</p>
                         <div className="social-links">
                             {socialLinks.map((link) => (
@@ -39,8 +39,10 @@ const CVHeader = ({ header, socialLinks, personalData, contactLinks }) => {
                             ))}
                         </div>
                     </div>
+                </div>
 
-                    <div className="social-block">
+                <div className="header-contacts">
+                    <div className="social-block social-block-personal">
                         <p className="social-title">Personal Data</p>
                         <div className="personal-data">
                             {personalData.map((item) => (
