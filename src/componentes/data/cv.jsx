@@ -35,7 +35,7 @@ export const socialLinks = [
 ];
 
 export const personalData = [
-    "Date of Birth: 01 Nov 2004",
+    "Date of Birth: 01/11/2004",
     "Nationality: Mexican",
     "Status: Student",
 ];
@@ -153,6 +153,8 @@ export const technicalSkills = [
     "Git",
     "REST APIs",
     "Scrum",
+    "Python",
+
 ];
 
 export const softSkills = [
