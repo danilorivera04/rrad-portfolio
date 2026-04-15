@@ -42,16 +42,20 @@ const CVPage = () => {
     // Genera y descarga el CV en PDF usando import dinamico.
     const downloadPDF = async () => {
         const exportRoot = document.getElementById("cv-export-root");
+        const cvPage = document.getElementById("cv-page");
         if (!exportRoot || isGenerating) return;
 
         setIsGenerating(true);
 
         try {
             const { default: html2pdf } = await import("html2pdf.js");
+            const pageRect = cvPage?.getBoundingClientRect();
+            const canvasWidth = Math.ceil(pageRect?.width || exportRoot.scrollWidth || 1400);
+            const canvasHeight = Math.ceil(pageRect?.height || exportRoot.scrollHeight || 2000);
 
             await new Promise((resolve) => setTimeout(resolve, 300));
 
-            await html2pdf()
+            const worker = html2pdf()
                 .set({
                     margin: 0,
                     filename: "Angel_Rivera_CV.pdf",
@@ -62,8 +66,11 @@ const CVPage = () => {
                         backgroundColor: isDarkMode ? "#161c26" : "#ffffff",
                         scrollX: 0,
                         scrollY: 0,
-                        windowWidth: 1400,
-                        windowHeight: 2000,
+                        windowWidth: canvasWidth,
+                        windowHeight: canvasHeight,
+                    },
+                    pagebreak: {
+                        mode: ["avoid-all", "css", "legacy"],
                     },
                     jsPDF: {
                         unit: "mm",
@@ -72,7 +79,15 @@ const CVPage = () => {
                     },
                 })
                 .from(exportRoot)
-                .save();
+                .toPdf();
+
+            const pdf = await worker.get("pdf");
+            // Evita una hoja extra vacia causada por redondeos del render.
+            while (pdf.getNumberOfPages() > 1) {
+                pdf.deletePage(pdf.getNumberOfPages());
+            }
+
+            await worker.save();
         } catch (error) {
             console.error("Error al generar el PDF:", error);
         } finally {
