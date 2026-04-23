@@ -20,7 +20,10 @@ const CVPage = () => {
 
     // Estado para el idioma del CV
     const [language, setLanguage] = useState(() => {
-        return localStorage.getItem("cv-language") || "en";
+        const savedLanguage = localStorage.getItem("cv-language");
+        if (savedLanguage) return savedLanguage;
+
+        return navigator.language?.toLowerCase().startsWith("es") ? "es" : "en";
     });
 
     // Estado para bloquear el boton mientras se genera el PDF.

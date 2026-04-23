@@ -11,7 +11,10 @@ import Footer from "./Footer";
 
 const HomePage = () => {
     const [language, setLanguage] = useState(() => {
-        return localStorage.getItem("cv-language") || "en";
+        const savedLanguage = localStorage.getItem("cv-language");
+        if (savedLanguage) return savedLanguage;
+
+        return navigator.language?.toLowerCase().startsWith("es") ? "es" : "en";
     });
 
     useEffect(() => {
