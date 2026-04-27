@@ -46,7 +46,6 @@ const CVPage = () => {
         interests,
         sections,
         personalDataLabel,
-        socialMediaLabel,
     } = translation;
 
     // Persiste la preferencia de tema en el mismo key compartido por el home.
@@ -62,55 +61,41 @@ const CVPage = () => {
     // Genera y descarga el CV en PDF usando import dinamico.
     const downloadPDF = async () => {
         const exportRoot = document.getElementById("cv-export-root");
-        const cvPage = document.getElementById("cv-page");
         if (!exportRoot || isGenerating) return;
 
         setIsGenerating(true);
 
         try {
             const { default: html2pdf } = await import("html2pdf.js");
-            const pageRect = cvPage?.getBoundingClientRect();
-            const canvasWidth = Math.ceil(pageRect?.width || exportRoot.scrollWidth || 1400);
-            const canvasHeight = Math.ceil(pageRect?.height || exportRoot.scrollHeight || 2000);
 
-            await new Promise((resolve) => setTimeout(resolve, 300));
+            // Pequeño delay para que los estilos se apliquen correctamente
+            await new Promise((resolve) => setTimeout(resolve, 100));
 
-            // Cambiar el nombre del PDF según el idioma
             const filename = language === "es" ? "Angel_Rivera_CV_ES.pdf" : "Angel_Rivera_CV_EN.pdf";
 
-            const worker = html2pdf()
-                .set({
-                    margin: 0,
-                    filename: filename,
-                    image: { type: "jpeg", quality: 1 },
-                    html2canvas: {
-                        scale: 2,
-                        useCORS: true,
-                        backgroundColor: isDarkMode ? "#161c26" : "#ffffff",
-                        scrollX: 0,
-                        scrollY: 0,
-                        windowWidth: canvasWidth,
-                        windowHeight: canvasHeight,
-                    },
-                    pagebreak: {
-                        mode: ["avoid-all", "css", "legacy"],
-                    },
-                    jsPDF: {
-                        unit: "mm",
-                        format: "a4",
-                        orientation: "portrait",
-                    },
-                })
-                .from(exportRoot)
-                .toPdf();
+            const opt = {
+                margin: [0, 0, 0, 0],
+                filename: filename,
+                image: { type: "jpeg", quality: 1 },
+                html2canvas: {
+                    scale: 2.5,
+                    useCORS: true,
+                    backgroundColor: isDarkMode ? "#161c26" : "#ffffff",
+                    letterRendering: true,
+                    logging: false
+                },
+                jsPDF: {
+                    unit: "mm",
+                    format: "a4",
+                    orientation: "portrait",
+                    compress: true
+                },
+                pagebreak: { mode: ['avoid-all', 'css'] }
+            };
 
-            const pdf = await worker.get("pdf");
-            // Evita una hoja extra vacia causada por redondeos del render.
-            while (pdf.getNumberOfPages() > 1) {
-                pdf.deletePage(pdf.getNumberOfPages());
-            }
+            // Generar y guardar directamente
+            await html2pdf().set(opt).from(exportRoot).save();
 
-            await worker.save();
         } catch (error) {
             console.error("Error al generar el PDF:", error);
         } finally {
@@ -141,7 +126,6 @@ const CVPage = () => {
                     personalData={personalData}
                     contactLinks={contactLinks}
                     personalDataLabel={personalDataLabel}
-                    socialMediaLabel={socialMediaLabel}
                 />
 
                 <div className="cv-body">

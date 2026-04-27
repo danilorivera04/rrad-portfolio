@@ -1,4 +1,3 @@
-// Cabecera del CV dividida en bloques pequeños para que sea facil ampliar contacto o redes.
 const SocialLink = ({ label, href, iconPath }) => (
     <a
         className="social-link"
@@ -16,7 +15,7 @@ const SocialLink = ({ label, href, iconPath }) => (
     </a>
 );
 
-const CVHeader = ({ header, socialLinks, personalData, contactLinks, personalDataLabel = "Personal Data", socialMediaLabel = "Social Media" }) => {
+const CVHeader = ({ header, socialLinks, personalData, contactLinks, personalDataLabel = "Personal Data" }) => {
     return (
         <header className="cv-header">
             <div className="header-inner">
@@ -28,17 +27,6 @@ const CVHeader = ({ header, socialLinks, personalData, contactLinks, personalDat
                     </h1>
                     <p className="header-sub">{header.subtitle}</p>
                     <p className="header-location">{header.location}</p>
-                </div>
-
-                <div className="header-social">
-                    <div className="social-block social-block-media">
-                        <p className="social-title">{socialMediaLabel}</p>
-                        <div className="social-links">
-                            {socialLinks.map((link) => (
-                                <SocialLink key={link.label} {...link} />
-                            ))}
-                        </div>
-                    </div>
                 </div>
 
                 <div className="header-contacts">
@@ -63,6 +51,10 @@ const CVHeader = ({ header, socialLinks, personalData, contactLinks, personalDat
                         >
                             {contact.label}
                         </a>
+                    ))}
+
+                    {socialLinks.map((link) => (
+                        <SocialLink key={link.label} {...link} />
                     ))}
                 </div>
             </div>

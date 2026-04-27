@@ -189,7 +189,7 @@ body {
 
 .cv-view .header-inner {
     display: grid;
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: 1fr auto;
     gap: 28px;
     align-items: start;
     position: relative;
@@ -202,13 +202,7 @@ body {
     min-height: 100%;
 }
 
-.cv-view .header-social {
-    display: flex;
-    justify-content: center;
-}
-
-/* Ajusta este offset para subir o bajar el bloque derecho del header (Social + Personal Data). */
-.cv-view .header-social,
+/* Ajusta este offset para subir o bajar el bloque derecho del header. */
 .cv-view .header-contacts {
     margin-top: var(--header-side-top-offset, 0px);
 }
@@ -267,26 +261,12 @@ body {
     gap: 8px;
 }
 
-.cv-view.is-exporting .header-social,
 .cv-view.is-exporting .header-contacts {
     margin-top: var(--header-side-top-offset-export, 0px);
 }
 
 .cv-view.is-exporting .social-block {
     margin-top: 0;
-}
-
-.cv-view .social-block-media {
-    align-items: center;
-}
-
-.cv-view .social-block-media .social-title {
-    text-align: center;
-}
-
-.cv-view .social-block-media .social-links {
-    justify-content: center;
-    max-width: 290px;
 }
 
 .cv-view .social-block-personal {
@@ -657,17 +637,41 @@ body {
     width: 210mm;
     height: 297mm;
     max-width: none;
-    min-height: 297mm;
     margin: 0;
     border-radius: 0;
     box-shadow: none;
     border: none;
     overflow: hidden;
-    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
 }
 
 .cv-view.is-exporting .cv-header {
     padding: 5px 18px 12px;
+    flex-shrink: 0;
+}
+
+.cv-view.is-exporting .cv-body {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    grid-template-columns: 1fr 68mm;
+}
+
+.cv-view.is-exporting .cv-main,
+.cv-view.is-exporting .cv-aside {
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.cv-view.is-exporting .cv-main::-webkit-scrollbar,
+.cv-view.is-exporting .cv-aside::-webkit-scrollbar {
+    display: none;
+}
+
+.cv-view.is-exporting .cv-footer {
+    flex-shrink: 0;
+    padding: 3px 18px;
 }
 
 .cv-view.is-exporting .header-name {
@@ -693,10 +697,6 @@ body {
     gap: 4px;
 }
 
-.cv-view.is-exporting .social-block {
-    gap: 2px;
-}
-
 .cv-view.is-exporting .social-title {
     font-size: 7px;
     letter-spacing: 0.16em;
@@ -709,10 +709,6 @@ body {
 .cv-view.is-exporting .social-links {
     gap: 2px;
     max-width: 240px;
-}
-
-.cv-view.is-exporting .social-block-media .social-links {
-    max-width: 190px;
 }
 
 .cv-view.is-exporting .social-link {
@@ -733,11 +729,6 @@ body {
 
 .cv-view.is-exporting .contact-item {
     font-size: 8px;
-}
-
-.cv-view.is-exporting .cv-body {
-    grid-template-columns: 1fr 68mm;
-    min-height: calc(297mm - 55mm);
 }
 
 .cv-view.is-exporting .cv-main {
@@ -860,10 +851,6 @@ body {
     padding: 1px 5px;
 }
 
-.cv-view.is-exporting .cv-footer {
-    padding: 3px 18px;
-}
-
 .cv-view.is-exporting .footer-note {
     font-size: 7px;
 }
@@ -897,29 +884,10 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .cv-view .header-social {
-        justify-content: flex-start;
-    }
-
-    .cv-view .header-contacts {
-        align-items: flex-start;
-    }
-
-    .cv-view .social-block-media,
     .cv-view .social-block-personal,
     .cv-view .social-block,
     .cv-view .social-links {
-        align-items: flex-start;
         justify-content: flex-start;
-    }
-
-    .cv-view .social-block-media .social-title {
-        text-align: left;
-    }
-
-    .cv-view .cv-main {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
     }
 
     .cv-view .cv-footer {
