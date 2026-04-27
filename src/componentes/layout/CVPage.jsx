@@ -202,7 +202,7 @@ const CVPage = () => {
                 </div>
 
                 <footer className="cv-footer">
-                    <span className="footer-note">Angel Danilo Rivera Rojas - 2025</span>
+                    <span className="footer-note">Angel Danilo Rivera Rojas - 2026</span>
                     <a
                         className="footer-link"
                         href="https://rrad.dev"
