@@ -48,6 +48,12 @@ export const contactLinks = [
         href: "https://rrad.dev",
         external: true,
     },
+
+    {
+        label: "LinkedIn: Angel Danilo Rivera Rojas",
+        href: "https://www.linkedin.com/in/angel-danilo-rivera-rojas-820014357/",
+        external: true,
+    },
 ];
 
 export const profileSummary =
