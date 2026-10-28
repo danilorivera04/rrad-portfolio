@@ -12,7 +12,9 @@
         /* Capa superior para texto y botones sobre el video */
         position: relative;
         z-index: 2;
-        width: 50vw;
+        width: 100%;
+        min-width: 0;
+        overflow-wrap: anywhere;
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -65,6 +67,7 @@
 
     .botones {
         display: flex;
+        flex-wrap: wrap;
         gap: 10px;
 
         .boton.transparente {
