@@ -16,6 +16,7 @@ const DarkModeSwitch = ({
     className = "",
     persistKey = "dark-mode",
     useBodyClass = true,
+    label = "Dark mode",
     checked,
     onChange,
 }) => {
@@ -72,6 +73,7 @@ const DarkModeSwitch = ({
                 name={name}
                 id={id}
                 checked={currentDarkMode}
+                aria-label={label}
                 onChange={toggleDarkMode}
             />
             <span className={`icono sol ${!currentDarkMode ? "active" : ""}`}>

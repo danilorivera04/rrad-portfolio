@@ -10,7 +10,15 @@
     cursor: pointer;
 
     input {
-        display: none;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+    }
+
+    &:has(input:focus-visible) {
+        outline: 2px solid var(--primario);
+        outline-offset: 4px;
     }
 
     .icono {
