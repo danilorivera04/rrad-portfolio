@@ -20,6 +20,17 @@ const Header = ({ language = "en", onLanguageChange }) => {
   const es = language === "es";
   const dialogRef = useRef(null);
   const triggerRef = useRef(null);
+  const scrollFrame = useRef(0);
+
+  useEffect(() => {
+    const cancel = () => cancelAnimationFrame(scrollFrame.current);
+    const events = ['wheel', 'touchstart', 'keydown', 'popstate', 'resize'];
+    events.forEach((name) => window.addEventListener(name, cancel, { passive: true }));
+    return () => {
+      cancel();
+      events.forEach((name) => window.removeEventListener(name, cancel));
+    };
+  }, []);
   const [mobile, setMobile] = useState(() => window.matchMedia('(max-width: 767px)').matches);
   const [collapsed, setCollapsed] = useState(() => window.matchMedia('(min-width: 768px) and (max-width: 1199px)').matches);
   const [isOpen, setIsOpen] = useState(false);
@@ -81,9 +92,41 @@ const Header = ({ language = "en", onLanguageChange }) => {
     if (!dialog.isConnected) return;
     dialog.close();
     setIsOpen(false);
-    triggerRef.current?.focus();
+    triggerRef.current?.focus({ preventScroll: true });
   };
   const compact = !mobile && collapsed;
+
+  const navigateSection = async (event, id) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    event.preventDefault();
+    cancelAnimationFrame(scrollFrame.current);
+    setActive(id);
+    await closeMenu();
+    if (!target.isConnected) return;
+    if (window.location.hash !== `#${id}`) {
+      window.history.pushState(window.history.state, '', `#${id}`);
+    }
+    // Wait for the mobile dialog to release the page's scroll lock.
+    scrollFrame.current = requestAnimationFrame(() => {
+      const start = window.scrollY;
+      const margin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+      const end = Math.max(0, Math.min(
+        start + target.getBoundingClientRect().top - margin,
+        document.documentElement.scrollHeight - window.innerHeight,
+      ));
+      const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const started = performance.now();
+      const step = (now) => {
+        const progress = preference.matches ? 1 : Math.min((now - started) / 1200, 1);
+        const eased = progress < .5 ? 4 * progress ** 3 : 1 - (-2 * progress + 2) ** 3 / 2;
+        window.scrollTo({ top: start + (end - start) * eased, behavior: 'instant' });
+        if (progress < 1) scrollFrame.current = requestAnimationFrame(step);
+      };
+      step(started);
+    });
+  };
 
   return (
     <header className="portfolio-navigation" data-compact={compact}>
@@ -104,13 +147,13 @@ const Header = ({ language = "en", onLanguageChange }) => {
             onClick={() => mobile ? closeMenu() : setCollapsed(!collapsed)}>
             <NavIcon name={mobile ? 'close' : 'menu'} />
           </button>
-          <a href="#inicio" className="sidebar-brand" aria-label={es ? 'Danilo Rivera, inicio' : 'Danilo Rivera, home'} onClick={closeMenu}>
+          <a href="#inicio" className="sidebar-brand" aria-label={es ? 'Danilo Rivera, inicio' : 'Danilo Rivera, home'} onClick={(event) => navigateSection(event, 'inicio')}>
             <img src="/assets/imagenes/logo.png" alt="" />
             <span className="sidebar-expanded"><strong>Danilo Rivera</strong><small>{t.subtitle}</small></span>
           </a>
           <nav className="left-sidebar-nav" aria-label={es ? 'Navegación principal' : 'Main navigation'}>
             {[["inicio", es ? 'Inicio' : 'Home', 'home'], ["trabajos", t.works, 'projects'], ["acerca-de", t.about, 'about'], ["contacto", t.contact, 'contact']].map(([id, label, icon]) => (
-              <a key={id} href={`#${id}`} onClick={closeMenu} title={label} aria-label={label} aria-current={active === id ? 'location' : undefined}>
+              <a key={id} href={`#${id}`} onClick={(event) => navigateSection(event, id)} title={label} aria-label={label} aria-current={active === id ? 'location' : undefined}>
                 <NavIcon name={icon} /><span className="sidebar-expanded">{label}</span>
               </a>
             ))}

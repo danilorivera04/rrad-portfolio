@@ -1,0 +1,67 @@
+/* Portfolio-specific editorial rhythm; CV keeps its own design system. */
+.home-shell {
+    --primario: #245fc2;
+    --primario-hover: #194b9c;
+    --portfolio-line: #d9dfe6;
+    --portfolio-muted: #566273;
+    background: #f7f8fa;
+    color: #172536;
+}
+.dark .home-shell {
+    --portfolio-line: #303b49;
+    --portfolio-muted: #b3bfce;
+    background: #101720;
+    color: #eef2f7;
+}
+.home-shell .home-content { width: calc(100% - 64px); max-width: 1280px; }
+.home-shell :is(a, button, input):focus-visible { outline: 3px solid #649ef5; outline-offset: 5px; }
+.home-shell .boton { min-height: 48px; border-radius: 8px; transition: background-color 180ms ease; }
+.home-shell .hero { padding: clamp(24px, 4vh, 48px) clamp(24px, 6vw, 88px); border-radius: 12px; min-height: calc(100svh - 64px); margin-bottom: 32px; display: flex; align-items: center; background-color: #102b40; }
+.home-shell .hero::after { background: linear-gradient(90deg, rgb(9 29 44 / 96%), rgb(9 29 44 / 78%) 60%, rgb(9 29 44 / 48%)); }
+.home-shell .hero .contenido { max-width: 760px; gap: 18px; text-align: left; }
+.home-shell .hero .contenido > :is(h1, p) { margin: 0; }
+.hero-eyebrow { color: #c6d7ea; font-size: 12px; line-height: 1.7; letter-spacing: .1em; text-transform: uppercase; max-width: 52ch; }
+.home-shell .hero .titulo { font-family: var(--font-display); font-size: clamp(38px, 4.6vw, 68px); font-weight: 700; line-height: 1.2; text-wrap: balance; }
+.home-shell .hero .titulo span { font-size: .45em; font-weight: 400; letter-spacing: -.02em; margin-bottom: 8px; color: #c6d7ea; }
+.home-shell .hero .subtitulo { max-width: 55ch; font-size: 16px; line-height: 1.8; color: #d6e1ec; }
+.home-shell .hero .botones { justify-content: flex-start; margin-top: 8px; gap: 12px; }
+.home-shell .hero .boton.transparente { background: #f0f5fc; color: #173b66; }
+.home-shell .hero .boton.transparente:hover { background: #dbe8fa; }
+.home-shell :is(.trabajos, .contacto, .footer) { padding: 88px 0; }
+.home-shell .trabajos { align-items: stretch; gap: 32px; }
+.home-shell .trabajos .encabezado { align-items: center; text-align: center; gap: 12px; }
+.home-shell .trabajos .encabezado .titulo { font-family: var(--font-display); font-size: clamp(30px, 3vw, 42px); color: inherit; }
+.home-shell .trabajos .encabezado .subtitulo { color: var(--portfolio-muted); line-height: 1.7; }
+.home-shell .trabajos .filtros { justify-content: center; gap: 10px; }
+.home-shell .trabajos .filtros label { position: relative; }
+.home-shell .trabajos .filtros input[type='radio'] { display: block; position: absolute; width: 1px; height: 1px; opacity: 0; }
+.home-shell .trabajos .filtros input:focus-visible + .opcion { outline: 3px solid #649ef5; outline-offset: 4px; }
+.home-shell .trabajos .filtros .opcion { display: flex; align-items: center; min-height: 44px; border-radius: 6px; color: var(--portfolio-muted); border-color: var(--portfolio-line); font-size: 13px; }
+.home-shell .trabajos .filtros input:checked + .opcion { color: #fff; }
+.home-shell .trabajos .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-inline: 0; gap: 40px 24px; }
+.home-shell .trabajos .grid .thumb { min-height: 0; aspect-ratio: 16 / 10; border: 1px solid var(--portfolio-line); border-radius: 8px; background: #e4e9ef; }
+.home-shell .trabajos .grid .info .nombre { font-size: 18px; line-height: 1.5; }
+.home-shell .trabajos .grid .info .btn-ir { width: 44px; height: 44px; flex-shrink: 0; }
+.home-shell .acerca-de { padding: 80px 0; border-block: 1px solid var(--portfolio-line); }
+.home-shell .acerca-de .grid { width: 100%; gap: 48px; }
+.home-shell .acerca-de .grid .col-2 .titulo { font-family: var(--font-sans); line-height: 1.2; }
+.home-shell .contacto { margin-top: 0; }
+.home-shell .contacto .contacto-contenido { width: 100%; background: transparent; border: 0; box-shadow: none; padding: 24px; }
+.home-shell .contacto .contacto-whatsapp { box-shadow: none; width: auto; min-height: 52px; font-size: 18px; gap: 28px; border-radius: 8px; }
+.home-shell .footer { border-top: 1px solid var(--portfolio-line); padding-block: 40px; }
+@container (max-width: 650px) {
+    .home-shell .acerca-de .grid { grid-template-columns: 1fr; }
+    .home-shell .acerca-de .col-1 .fotos { max-width: 340px; margin: 0 auto 56px; }
+    .home-shell .trabajos .grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 767px) {
+    .home-shell .home-content { width: calc(100% - 32px); padding-top: 16px; }
+    .home-shell .hero { padding: 28px 24px; min-height: calc(100svh - 116px); margin-bottom: 16px; }
+    .home-shell .hero .titulo { font-size: clamp(36px, 9vw, 56px); }
+    .home-shell :is(.trabajos, .contacto) { padding-block: 56px; }
+    .home-shell .acerca-de { padding-block: 56px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .home-shell .hero .video { display: none; }
+    .home-shell *, .home-shell *::before, .home-shell *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

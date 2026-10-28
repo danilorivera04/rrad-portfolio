@@ -64,7 +64,7 @@ const Trabajos = ({ language = 'en' }) => {
                         </a>
                         
                     </div>
-                    <a href="#" className="btn-ir" onClick={(e) => openModal(e, trabajo.id)}>
+                    <a href="#" className="btn-ir" aria-label={`${language === 'es' ? 'Ver proyecto' : 'View project'}: ${trabajo.info.nombre}`} onClick={(e) => openModal(e, trabajo.id)}>
                         <ArrowCircleIcon width={16} height={16} />
                     </a>
                 </div>
@@ -75,7 +75,7 @@ const Trabajos = ({ language = 'en' }) => {
     return (
         <section className="trabajos" id="trabajos">
             <div className="encabezado">
-                <h3 className="titulo">{labels.title}</h3>
+                <h2 className="titulo">{labels.title}</h2>
                 <p className="subtitulo">{labels.subtitle}</p>
             </div>
 

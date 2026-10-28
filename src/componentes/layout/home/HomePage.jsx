@@ -7,6 +7,7 @@ import Trabajos from "./Trabajos";
 import AcercaDe from "./AcercaDe";
 import Contacto from "./Contacto";
 import Footer from "./Footer";
+import "./DesignPolish.css";
 
 const HomePage = () => {
     const pageRef = useRef(null);
