@@ -1,6 +1,8 @@
 // Composicion de la pagina principal.
 // Este archivo solo agrupa secciones para que la landing quede mas ordenada y facil de leer.
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import useScrollReveal from "./useScrollReveal";
+import "./Motion.css";
 import Header from "./Header";
 import Hero from "./Hero";
 // import Clientes from "./Clientes";
@@ -10,6 +12,8 @@ import Contacto from "./Contacto";
 import Footer from "./Footer";
 
 const HomePage = () => {
+    const pageRef = useRef(null);
+    useScrollReveal(pageRef);
     const [language, setLanguage] = useState(() => {
         const savedLanguage = localStorage.getItem("cv-language");
         if (savedLanguage) return savedLanguage;
@@ -22,7 +26,7 @@ const HomePage = () => {
     }, [language]);
 
     return (
-        <div className="contenedor">
+        <div className="contenedor home-motion" ref={pageRef}>
             <Header language={language} onLanguageChange={setLanguage} />
             <Hero language={language} />
             {/* <Clientes language={language} /> */}

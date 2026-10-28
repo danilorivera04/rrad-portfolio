@@ -50,7 +50,7 @@ const Trabajos = ({ language = 'en' }) => {
     };
 
     // Tarjeta reutilizable para cada proyecto del grid.
-    const TrabajoCard = ({ trabajo }) => {
+    const renderTrabajo = (trabajo) => {
         return (
             <div className="trabajo" key={trabajo.id}>
                 <a href="#" className="thumb" onClick={(e) => openModal(e, trabajo.id)}>
@@ -97,9 +97,7 @@ const Trabajos = ({ language = 'en' }) => {
 
             {/* Grid de tarjetas segun el filtro activo. */}
             <div className="grid">
-                {trabajosFiltrados.map((trabajo) => (
-                    <TrabajoCard key={trabajo.id} trabajo={trabajo} />
-                ))}
+                {trabajosFiltrados.map(renderTrabajo)}
             </div>
 
             {/* Render condicional del modal cuando hay un trabajo abierto. */}

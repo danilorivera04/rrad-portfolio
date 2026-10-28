@@ -1,5 +1,5 @@
 import "./DarkModeSwitch.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 
 /**
  * Switch de tema claro/oscuro. Persiste la preferencia en localStorage.
@@ -21,10 +21,14 @@ const DarkModeSwitch = ({
 }) => {
     const isControlled = typeof checked === "boolean";
 
-    // Toma el tema guardado en localStorage para mantener preferencia entre recargas.
-    const estadoInicial = JSON.parse(localStorage.getItem(persistKey) || false);
-    // Estado que controla si el sitio está en modo oscuro o claro.
-    const [darkMode, setDarkMode] = useState(estadoInicial);
+    // Respeta el tema del dispositivo cuando no existe una preferencia guardada.
+    const [darkMode, setDarkMode] = useState(() => {
+        const savedTheme = localStorage.getItem(persistKey);
+        if (savedTheme === 'true' || savedTheme === 'false') {
+            return savedTheme === 'true';
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    });
 
     const currentDarkMode = isControlled ? checked : darkMode;
 
@@ -49,8 +53,8 @@ const DarkModeSwitch = ({
         localStorage.setItem(persistKey, JSON.stringify(checked));
     }, [checked, isControlled, persistKey]);
 
-    // Aplica o remueve la clase "dark" en <body> para activar estilos globales de tema.
-    useEffect(() => {
+    // Aplica el tema antes de pintar para evitar un cambio de colores durante la entrada.
+    useLayoutEffect(() => {
         if (!useBodyClass) return;
 
         if (currentDarkMode) {
