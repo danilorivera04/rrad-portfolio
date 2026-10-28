@@ -4,6 +4,7 @@
     --primario-hover: #194b9c;
     --portfolio-line: #d9dfe6;
     --portfolio-muted: #566273;
+    --section-spacing: 88px;
     background: #f7f8fa;
     color: #172536;
 }
@@ -27,8 +28,8 @@
 .home-shell .hero .botones { justify-content: flex-start; margin-top: 8px; gap: 12px; }
 .home-shell .hero .boton.transparente { background: #f0f5fc; color: #173b66; }
 .home-shell .hero .boton.transparente:hover { background: #dbe8fa; }
-.home-shell :is(.trabajos, .contacto, .footer) { padding: 88px 0; }
-.home-shell .trabajos { align-items: stretch; gap: 32px; }
+.home-shell :is(.trabajos, .acerca-de, .contacto, .footer) { padding: var(--section-spacing) 0; }
+.home-shell .trabajos { align-items: stretch; gap: 32px; border-top: 1px solid var(--portfolio-line); padding-top: 32px; }
 .home-shell .trabajos .encabezado { align-items: center; text-align: center; gap: 12px; }
 .home-shell .trabajos .encabezado .titulo { font-family: var(--font-display); font-size: clamp(30px, 3vw, 42px); color: inherit; }
 .home-shell .trabajos .encabezado .subtitulo { color: var(--portfolio-muted); line-height: 1.7; }
@@ -40,26 +41,27 @@
 .home-shell .trabajos .filtros input:checked + .opcion { color: #fff; }
 .home-shell .trabajos .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-inline: 0; gap: 40px 24px; }
 .home-shell .trabajos .grid .thumb { min-height: 0; aspect-ratio: 16 / 10; border: 1px solid var(--portfolio-line); border-radius: 8px; background: #e4e9ef; }
+.home-shell .trabajos .grid .thumb img { object-fit: contain; }
+.dark .home-shell .trabajos .grid .thumb { background: #182330; }
 .home-shell .trabajos .grid .info .nombre { font-size: 18px; line-height: 1.5; }
 .home-shell .trabajos .grid .info .btn-ir { width: 44px; height: 44px; flex-shrink: 0; }
-.home-shell .acerca-de { padding: 80px 0; border-block: 1px solid var(--portfolio-line); }
+.home-shell .acerca-de { border-block: 1px solid var(--portfolio-line); }
 .home-shell .acerca-de .grid { width: 100%; gap: 48px; }
 .home-shell .acerca-de .grid .col-2 .titulo { font-family: var(--font-sans); line-height: 1.2; }
 .home-shell .contacto { margin-top: 0; }
-.home-shell .contacto .contacto-contenido { width: 100%; background: transparent; border: 0; box-shadow: none; padding: 24px; }
+.home-shell .contacto .contacto-contenido { width: 100%; background: transparent; border: 0; box-shadow: none; padding: 0 24px; }
 .home-shell .contacto .contacto-whatsapp { box-shadow: none; width: auto; min-height: 52px; font-size: 18px; gap: 28px; border-radius: 8px; }
-.home-shell .footer { border-top: 1px solid var(--portfolio-line); padding-block: 40px; }
+.home-shell .footer { border-top: 1px solid var(--portfolio-line); }
 @container (max-width: 650px) {
     .home-shell .acerca-de .grid { grid-template-columns: 1fr; }
     .home-shell .acerca-de .col-1 .fotos { max-width: 340px; margin: 0 auto 56px; }
     .home-shell .trabajos .grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 767px) {
+    .home-shell { --section-spacing: 56px; }
     .home-shell .home-content { width: calc(100% - 32px); padding-top: 16px; }
     .home-shell .hero { padding: 28px 24px; min-height: calc(100svh - 116px); margin-bottom: 16px; }
     .home-shell .hero .titulo { font-size: clamp(36px, 9vw, 56px); }
-    .home-shell :is(.trabajos, .contacto) { padding-block: 56px; }
-    .home-shell .acerca-de { padding-block: 56px; }
 }
 @media (prefers-reduced-motion: reduce) {
     .home-shell .hero .video { display: none; }

@@ -1,3 +1,11 @@
+/* Crossfade the two themes without changing layout or sidebar transitions. */
+@media (prefers-reduced-motion: no-preference) {
+    ::view-transition-old(root) { animation: theme-fade-out 450ms ease-in-out both; }
+    ::view-transition-new(root) { animation: theme-fade-in 450ms ease-in-out both; }
+    @keyframes theme-fade-out { to { opacity: 0; } }
+    @keyframes theme-fade-in { from { opacity: 0; } to { opacity: 1; } }
+}
+
 .dark-mode {
     /* Contenedor del switch de tema */
     background: var(--switch-track);

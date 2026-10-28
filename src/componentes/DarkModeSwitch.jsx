@@ -1,5 +1,6 @@
 import "./DarkModeSwitch.css";
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { flushSync } from "react-dom";
 
 /**
  * Switch de tema claro/oscuro. Persiste la preferencia en localStorage.
@@ -21,6 +22,7 @@ const DarkModeSwitch = ({
     onChange,
 }) => {
     const isControlled = typeof checked === "boolean";
+    const themeTransition = useRef(null);
 
     // Respeta el tema del dispositivo cuando no existe una preferencia guardada.
     const [darkMode, setDarkMode] = useState(() => {
@@ -37,14 +39,17 @@ const DarkModeSwitch = ({
     const toggleDarkMode = () => {
         const nextValue = !currentDarkMode;
 
-        if (!isControlled) {
-            setDarkMode(nextValue);
-        }
-
-        localStorage.setItem(persistKey, JSON.stringify(nextValue));
-
-        if (onChange) {
-            onChange(nextValue);
+        const applyTheme = () => {
+            if (!isControlled) setDarkMode(nextValue);
+            localStorage.setItem(persistKey, JSON.stringify(nextValue));
+            if (onChange) onChange(nextValue);
+        };
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        themeTransition.current?.skipTransition();
+        if (document.startViewTransition && !reduceMotion && useBodyClass) {
+            themeTransition.current = document.startViewTransition(() => flushSync(applyTheme));
+        } else {
+            applyTheme();
         }
     };
 

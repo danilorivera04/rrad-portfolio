@@ -1,5 +1,6 @@
 import "./Header.css";
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import DarkModeSwitch from "../../DarkModeSwitch";
 import { Link } from "react-router-dom";
 import { getHomeTexts } from "./data/homeTexts";
@@ -21,6 +22,7 @@ const Header = ({ language = "en", onLanguageChange }) => {
   const dialogRef = useRef(null);
   const triggerRef = useRef(null);
   const scrollFrame = useRef(0);
+  const contentAnimation = useRef(null);
 
   useEffect(() => {
     const cancel = () => cancelAnimationFrame(scrollFrame.current);
@@ -28,6 +30,7 @@ const Header = ({ language = "en", onLanguageChange }) => {
     events.forEach((name) => window.addEventListener(name, cancel, { passive: true }));
     return () => {
       cancel();
+      contentAnimation.current?.cancel();
       events.forEach((name) => window.removeEventListener(name, cancel));
     };
   }, []);
@@ -85,7 +88,7 @@ const Header = ({ language = "en", onLanguageChange }) => {
       try {
         await dialog.animate(
           [{ transform: 'translateX(0)' }, { transform: 'translateX(-100%)' }],
-          { duration: 300, easing: 'cubic-bezier(.4, 0, .2, 1)' },
+          { duration: 500, easing: 'cubic-bezier(.4, 0, .2, 1)' },
         ).finished;
       } catch { /* El cierre puede interrumpirse al cambiar de ruta o tamaño. */ }
     }
@@ -95,6 +98,37 @@ const Header = ({ language = "en", onLanguageChange }) => {
     triggerRef.current?.focus({ preventScroll: true });
   };
   const compact = !mobile && collapsed;
+
+  const toggleSidebar = () => {
+    cancelAnimationFrame(scrollFrame.current);
+    const content = document.querySelector('.home-content');
+    const before = content?.getBoundingClientRect();
+    const sections = [...document.querySelectorAll('.home-content > section')];
+    const section = sections.find((element) => element.getBoundingClientRect().bottom > 32);
+    // Keep the visible content anchored while the wider/narrower layout reflows.
+    const candidates = section
+      ? [section, ...section.querySelectorAll('.trabajo, .encabezado, .col-2, .contacto-contenido')]
+      : [];
+    const anchor = candidates.find((element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.top >= 0 && rect.top < window.innerHeight;
+    }) || section;
+    const offset = anchor?.getBoundingClientRect().top;
+    contentAnimation.current?.cancel();
+    flushSync(() => setCollapsed((value) => !value));
+    // Reflow and restore the reading position once, then animate on the compositor.
+    if (anchor?.isConnected) {
+      const delta = anchor.getBoundingClientRect().top - offset;
+      window.scrollTo({ top: window.scrollY + delta, behavior: 'instant' });
+    }
+    if (!content || !before || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const after = content.getBoundingClientRect();
+    const sidebarDuration = parseFloat(getComputedStyle(dialogRef.current).getPropertyValue('--sidebar-duration')) || 800;
+    contentAnimation.current = content.animate([
+      { transform: `translateX(${before.left - after.left}px) scaleX(${before.width / after.width})`, transformOrigin: 'top left' },
+      { transform: 'translateX(0) scaleX(1)', transformOrigin: 'top left' },
+    ], { duration: sidebarDuration, easing: 'cubic-bezier(.4, 0, .2, 1)' });
+  };
 
   const navigateSection = async (event, id) => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -144,7 +178,11 @@ const Header = ({ language = "en", onLanguageChange }) => {
           <button type="button" className="sidebar-icon-button sidebar-toggle"
             aria-label={mobile ? (es ? 'Cerrar menú' : 'Close menu') : compact ? (es ? 'Expandir menú' : 'Expand menu') : (es ? 'Contraer menú' : 'Collapse menu')}
             aria-expanded={mobile ? isOpen : !collapsed}
-            onClick={() => mobile ? closeMenu() : setCollapsed(!collapsed)}>
+            onClick={(event) => {
+              if (event.detail > 0) event.currentTarget.blur();
+              if (mobile) closeMenu();
+              else toggleSidebar();
+            }}>
             <NavIcon name={mobile ? 'close' : 'menu'} />
           </button>
           <a href="#inicio" className="sidebar-brand" aria-label={es ? 'Danilo Rivera, inicio' : 'Danilo Rivera, home'} onClick={(event) => navigateSection(event, 'inicio')}>
