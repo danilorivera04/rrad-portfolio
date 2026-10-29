@@ -21,6 +21,7 @@ const Header = ({ language = "en", onLanguageChange }) => {
   const es = language === "es";
   const dialogRef = useRef(null);
   const triggerRef = useRef(null);
+  const openedWithPointer = useRef(false);
   const scrollFrame = useRef(0);
   const contentAnimation = useRef(null);
 
@@ -59,6 +60,7 @@ const Header = ({ language = "en", onLanguageChange }) => {
     const dialog = dialogRef.current;
     const previousOverflow = document.body.style.overflow;
     if (mobile && isOpen) {
+      dialog.dataset.pointerOpened = String(openedWithPointer.current);
       dialog.showModal();
       document.body.style.overflow = 'hidden';
     } else if (!mobile) {
@@ -77,13 +79,37 @@ const Header = ({ language = "en", onLanguageChange }) => {
   }, [mobile, isOpen]);
 
   useEffect(() => {
+    let frame = 0;
+    const sections = ['trabajos', 'acerca-de', 'contacto']
+      .map((id) => document.getElementById(id)).filter(Boolean);
     const update = () => {
-      setActive(window.location.hash.slice(1) || 'inicio');
+      frame = 0;
+      const readingLine = window.innerHeight * .35;
+      let current = 'inicio';
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= readingLine) current = section.id;
+      }
+      if (window.scrollY > 0 && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+        current = sections.at(-1)?.id || current;
+      }
+      setActive(current);
     };
-    update();
-    window.addEventListener('hashchange', update);
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    schedule();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    window.addEventListener('hashchange', schedule);
+    const observer = new ResizeObserver(schedule);
+    const content = document.querySelector('.home-content');
+    if (content) observer.observe(content);
     return () => {
-      window.removeEventListener('hashchange', update);
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      window.removeEventListener('hashchange', schedule);
     };
   }, []);
 
@@ -173,10 +199,14 @@ const Header = ({ language = "en", onLanguageChange }) => {
       <div className="mobile-header">
         <button type="button" className="sidebar-icon-button" ref={triggerRef}
           aria-label={es ? 'Abrir menú' : 'Open menu'} aria-controls="site-sidebar"
-          aria-expanded={isOpen} aria-haspopup="dialog" onClick={() => setIsOpen(true)}><NavIcon name="menu" /></button>
+          aria-expanded={isOpen} aria-haspopup="dialog" onClick={(event) => {
+            openedWithPointer.current = event.detail > 0;
+            setIsOpen(true);
+          }}><NavIcon name="menu" /></button>
         <img src="/assets/imagenes/logo.png" alt="RRAD" />
       </div>
       <dialog ref={dialogRef} id="site-sidebar" className="left-sidebar" aria-label={es ? 'Navegación' : 'Navigation'}
+        onKeyDownCapture={() => { delete dialogRef.current.dataset.pointerOpened; }}
         onCancel={(event) => { event.preventDefault(); if (mobile) closeMenu(); }}
         onClick={(event) => { if (mobile && event.target === event.currentTarget) closeMenu(); }}>
         <div className="left-sidebar-inner">
@@ -193,7 +223,7 @@ const Header = ({ language = "en", onLanguageChange }) => {
           <a href="#inicio" className="sidebar-brand" aria-label={es ? 'Danilo Rivera, inicio' : 'Danilo Rivera, home'} onClick={(event) => navigateSection(event, 'inicio')}>
             <img src="/assets/imagenes/logo.png" alt="" />
           </a>
-          <nav className="left-sidebar-nav" aria-label={es ? 'Navegación principal' : 'Main navigation'}>
+          <nav className="left-sidebar-nav" style={{ '--active-index': Math.max(0, ['inicio', 'trabajos', 'acerca-de', 'contacto'].indexOf(active)) }} aria-label={es ? 'Navegación principal' : 'Main navigation'}>
             {[["inicio", es ? 'Inicio' : 'Home', 'home'], ["trabajos", t.works, 'projects'], ["acerca-de", t.about, 'about'], ["contacto", t.contact, 'contact']].map(([id, label, icon]) => (
               <a key={id} href={`#${id}`} onClick={(event) => navigateSection(event, id)} title={label} aria-label={label} aria-current={active === id ? 'location' : undefined}>
                 <NavIcon name={icon} /><span className="sidebar-expanded">{label}</span>
