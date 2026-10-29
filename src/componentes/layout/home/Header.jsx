@@ -165,11 +165,10 @@ const Header = ({ language = "en", onLanguageChange }) => {
   return (
     <header className="portfolio-navigation" data-compact={compact}>
       <div className="mobile-header">
-        <img src="/assets/imagenes/logo.png" alt="RRAD" />
-        <span>Danilo Rivera</span>
         <button type="button" className="sidebar-icon-button" ref={triggerRef}
           aria-label={es ? 'Abrir menú' : 'Open menu'} aria-controls="site-sidebar"
           aria-expanded={isOpen} aria-haspopup="dialog" onClick={() => setIsOpen(true)}><NavIcon name="menu" /></button>
+        <img src="/assets/imagenes/logo.png" alt="RRAD" />
       </div>
       <dialog ref={dialogRef} id="site-sidebar" className="left-sidebar" aria-label={es ? 'Navegación' : 'Navigation'}
         onCancel={(event) => { event.preventDefault(); if (mobile) closeMenu(); }}
@@ -187,7 +186,6 @@ const Header = ({ language = "en", onLanguageChange }) => {
           </button>
           <a href="#inicio" className="sidebar-brand" aria-label={es ? 'Danilo Rivera, inicio' : 'Danilo Rivera, home'} onClick={(event) => navigateSection(event, 'inicio')}>
             <img src="/assets/imagenes/logo.png" alt="" />
-            <span className="sidebar-expanded"><strong>Danilo Rivera</strong><small>{t.subtitle}</small></span>
           </a>
           <nav className="left-sidebar-nav" aria-label={es ? 'Navegación principal' : 'Main navigation'}>
             {[["inicio", es ? 'Inicio' : 'Home', 'home'], ["trabajos", t.works, 'projects'], ["acerca-de", t.about, 'about'], ["contacto", t.contact, 'contact']].map(([id, label, icon]) => (
