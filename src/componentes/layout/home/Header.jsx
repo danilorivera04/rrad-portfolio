@@ -62,7 +62,13 @@ const Header = ({ language = "en", onLanguageChange }) => {
       dialog.showModal();
       document.body.style.overflow = 'hidden';
     } else if (!mobile) {
+      const previouslyFocused = document.activeElement;
       dialog.show();
+      // Non-modal navigation should not take focus when it first appears.
+      if (!dialog.contains(previouslyFocused) && document.activeElement === dialog.querySelector('.sidebar-toggle')) {
+        document.activeElement.blur();
+        if (previouslyFocused instanceof HTMLElement) previouslyFocused.focus({ preventScroll: true });
+      }
     }
     return () => {
       dialog.close();
