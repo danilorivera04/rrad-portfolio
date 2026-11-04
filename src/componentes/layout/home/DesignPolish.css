@@ -14,7 +14,11 @@
     background: #101720;
     color: #eef2f7;
 }
-.home-shell .home-content { width: calc(100% - 64px); max-width: 1280px; }
+.home-shell .home-content {
+    /* Fill the space beside either sidebar size, including ultrawide screens. */
+    width: calc(100% - 64px);
+    max-width: none;
+}
 .home-shell :is(a, button, input):focus-visible { outline: 3px solid #649ef5; outline-offset: 5px; }
 .home-shell .boton { min-height: 48px; border-radius: 8px; transition: background-color 180ms ease; }
 .home-shell .hero { padding: clamp(24px, 4vh, 48px) clamp(24px, 6vw, 88px); border-radius: 12px; min-height: calc(100svh - 64px); margin-bottom: 32px; display: flex; align-items: center; background-color: #102b40; }
@@ -52,6 +56,19 @@
 .home-shell .contacto .contacto-contenido { width: 100%; background: transparent; border: 0; box-shadow: none; padding: 0 24px; }
 .home-shell .contacto .contacto-whatsapp { box-shadow: none; width: auto; min-height: 52px; font-size: 18px; gap: 28px; border-radius: 8px; }
 .home-shell .footer { border-top: 1px solid var(--portfolio-line); }
+@container (min-width: 1440px) {
+    .home-shell .trabajos .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .home-shell .acerca-de .grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: center;
+        gap: clamp(48px, 4cqi, 120px);
+    }
+    .home-shell .acerca-de .col-1 .fotos {
+        max-width: 640px;
+        margin: 0 auto 76px;
+    }
+    .home-shell .acerca-de .grid .col-2 { max-width: 72ch; }
+}
 @container (max-width: 650px) {
     .home-shell .acerca-de .grid { grid-template-columns: 1fr; }
     .home-shell .acerca-de .col-1 .fotos { max-width: 340px; margin: 0 auto 56px; }
