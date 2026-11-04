@@ -44,7 +44,7 @@ export const cvTranslations = {
         ],
         contactLinks,
         profileSummary:
-            "Computer Systems Engineering student with strong focus on frontend development and mobile applications. Experienced in building full-stack projects using technologies like React, Node.js, and Android (Kotlin). Passionate about creating user-centered solutions, improving performance, and continuously learning new technologies.",
+            "Computer Systems Engineering student, nearing graduation, with a specialization in frontend development and knowledge of software development, databases, and network infrastructure. Experienced in developing web and mobile applications using technologies such as React, TypeScript, JavaScript, HTML, CSS, and Kotlin, as well as integrating backend services and databases using Supabase and Firebase. \n\n I have gained hands-on experience in technical support, computer maintenance, and network administration during my professional internship. I am known for my analytical thinking, problem-solving skills, adaptability, and commitment to continuous learning. I am seeking my first professional opportunity in the technology industry, where I can apply my technical knowledge, contribute to organizational goals, and continue growing professionally.",
         experiences: [
             {
                 role: "Waiter - Service Team",

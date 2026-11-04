@@ -12,7 +12,7 @@ const CVToolbar = ({ isDarkMode, isGenerating, onToggleDarkMode, onDownloadPDF, 
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                <div className="brand-dot">RR</div>
+                <img className="brand-dot" src="/assets/imagenes/logo.png" alt="RRAD" width="32" height="32" />
                 <span className="brand-text">
                     rrad.dev <span>↗</span>
                 </span>
