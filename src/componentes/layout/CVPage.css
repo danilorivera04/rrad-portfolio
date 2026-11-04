@@ -154,7 +154,7 @@ body {
 }
 
 /* Contenedor completo que se exporta a PDF. */
-.cv-view #cv-page {
+.cv-view :is(#cv-page, .cv-pdf-page) {
     width: 100%;
     max-width: 880px;
     background: var(--bg-card);
@@ -692,8 +692,9 @@ body {
     text-decoration: underline;
 }
 
-/* Estilos comprimidos cuando se exporta a PDF para que todo quepa en una página A4 */
+/* Copia de exportación A4: el contenido puede crecer sin recortarse. */
 .cv-view.is-exporting {
+    width: 210mm;
     padding: 0;
     min-height: auto;
     background: transparent;
@@ -703,15 +704,15 @@ body {
     display: none;
 }
 
-.cv-view.is-exporting #cv-page {
+.cv-view.is-exporting :is(#cv-page, .cv-pdf-page) {
     width: 210mm;
-    height: 297mm;
+    min-height: 296mm;
     max-width: none;
     margin: 0;
     border-radius: 0;
     box-shadow: none;
     border: none;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
 }
@@ -723,14 +724,12 @@ body {
 
 .cv-view.is-exporting .cv-body {
     flex: 1;
-    min-height: 0;
-    overflow: hidden;
-    grid-template-columns: 1fr 68mm;
+    grid-template-columns: minmax(0, 1fr) 60mm;
 }
 
 .cv-view.is-exporting .cv-main,
 .cv-view.is-exporting .cv-aside {
-    overflow-y: auto;
+    overflow: visible;
     scrollbar-width: none;
 }
 
@@ -759,7 +758,7 @@ body {
 }
 
 .cv-view.is-exporting .header-inner {
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 8px;
 }
 
@@ -798,8 +797,12 @@ body {
 }
 
 .cv-view.is-exporting .contact-item {
-    font-size: 8px;
+    font-size: 10px;
 }
+
+.cv-view.is-exporting .personal-item { font-size: 10px; }
+.cv-view.is-exporting[data-theme='dark'] { --text-3: #a8b4c6; }
+.cv-view.is-exporting[data-theme='light'] { --text-3: #62625d; }
 
 .cv-view.is-exporting .cv-main {
     padding: 12px 16px 16px 20px;
@@ -973,36 +976,36 @@ body {
 
 /* Ajustes responsivos para tablet/movil. */
 @media screen and (max-width: 900px) {
-    .cv-view .toolbar {
+    .cv-view:not(.is-exporting) .toolbar {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .cv-view .toolbar-actions {
+    .cv-view:not(.is-exporting) .toolbar-actions {
         width: 100%;
         justify-content: flex-start;
     }
 
-    .cv-view .cv-header,
-    .cv-view .cv-main,
-    .cv-view .cv-aside,
-    .cv-view .cv-footer {
+    .cv-view:not(.is-exporting) .cv-header,
+    .cv-view:not(.is-exporting) .cv-main,
+    .cv-view:not(.is-exporting) .cv-aside,
+    .cv-view:not(.is-exporting) .cv-footer {
         padding-left: 22px;
         padding-right: 22px;
     }
 
-    .cv-view .header-inner,
-    .cv-view .cv-body {
+    .cv-view:not(.is-exporting) .header-inner,
+    .cv-view:not(.is-exporting) .cv-body {
         grid-template-columns: 1fr;
     }
 
-    .cv-view .social-block-personal,
-    .cv-view .social-block,
-    .cv-view .social-links {
+    .cv-view:not(.is-exporting) .social-block-personal,
+    .cv-view:not(.is-exporting) .social-block,
+    .cv-view:not(.is-exporting) .social-links {
         justify-content: flex-start;
     }
 
-    .cv-view .cv-footer {
+    .cv-view:not(.is-exporting) .cv-footer {
         flex-direction: column;
         gap: 10px;
         align-items: flex-start;

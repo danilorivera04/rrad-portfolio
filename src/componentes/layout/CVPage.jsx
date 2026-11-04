@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CVToolbar from "./cv/CVToolbar";
 import CVHeader from "./cv/CVHeader";
+import { exportCV } from "./cv/exportCV";
 import {
     CVChipList,
     CVCertificationItem,
@@ -29,6 +30,7 @@ const CVPage = () => {
 
     // Estado para bloquear el boton mientras se genera el PDF.
     const [isGenerating, setIsGenerating] = useState(false);
+    const [exportError, setExportError] = useState("");
 
     // Obtener traducciones según el idioma seleccionado
     const translation = getTranslation(language);
@@ -65,40 +67,17 @@ const CVPage = () => {
         if (!exportRoot || isGenerating) return;
 
         setIsGenerating(true);
+        setExportError("");
 
         try {
-            const { default: html2pdf } = await import("html2pdf.js");
-
-            // Pequeño delay para que los estilos se apliquen correctamente
-            await new Promise((resolve) => setTimeout(resolve, 100));
-
             const filename = language === "es" ? "Angel_Rivera_CV_ES.pdf" : "Angel_Rivera_CV_EN.pdf";
-
-            const opt = {
-                margin: [0, 0, 0, 0],
-                filename: filename,
-                image: { type: "jpeg", quality: 1 },
-                html2canvas: {
-                    scale: 2.5,
-                    useCORS: true,
-                    backgroundColor: isDarkMode ? "#161c26" : "#ffffff",
-                    letterRendering: true,
-                    logging: false
-                },
-                jsPDF: {
-                    unit: "mm",
-                    format: "a4",
-                    orientation: "portrait",
-                    compress: true
-                },
-                pagebreak: { mode: ['avoid-all', 'css'] }
-            };
-
-            // Generar y guardar directamente
-            await html2pdf().set(opt).from(exportRoot).save();
+            await exportCV(exportRoot, filename);
 
         } catch (error) {
             console.error("Error al generar el PDF:", error);
+            setExportError(language === "es"
+                ? "No se pudo generar el PDF. Inténtalo de nuevo."
+                : "The PDF could not be generated. Please try again.");
         } finally {
             setIsGenerating(false);
         }
@@ -108,7 +87,7 @@ const CVPage = () => {
         // Este root incluye el estado visual del tema y es el origen real del PDF.
         <div
             id="cv-export-root"
-            className={`cv-view ${isGenerating ? "is-exporting" : ""}`.trim()}
+            className="cv-view"
             data-theme={isDarkMode ? "dark" : "light"}
         >
             <CVToolbar
@@ -119,6 +98,8 @@ const CVPage = () => {
                 language={language}
                 onLanguageChange={setLanguage}
             />
+
+            {exportError && <p role="alert">{exportError}</p>}
 
             <div id="cv-page">
                 <CVHeader
