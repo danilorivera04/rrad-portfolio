@@ -127,7 +127,7 @@ export const cvTranslations = {
         ],
         contactLinks,
         profileSummary:
-            "Estudiante de Ingeniería en Sistemas Computacionales con enfoque en desarrollo frontend y aplicaciones móviles. Experiencia en construcción de proyectos full-stack utilizando tecnologías como React, Node.js y Android (Kotlin). Apasionado por crear soluciones centradas en el usuario, mejorar el rendimiento y aprender continuamente nuevas tecnologías.",
+            "Estudiante de Ingeniería en Sistemas Computacionales, próximo a egresar, con especialización en desarrollo frontend y conocimientos en desarrollo de software, bases de datos e infraestructura de redes. Experiencia en el desarrollo de aplicaciones web y móviles utilizando tecnologías como React, TypeScript, JavaScript, HTML, CSS y Kotlin, así como en la integración de servicios backend y bases de datos mediante Supabase y Firebase.\n\nCuento con experiencia práctica en soporte técnico, mantenimiento de equipos y administración de redes adquirida durante mis residencias profesionales. Me caracterizo por mi capacidad de análisis, resolución de problemas, adaptabilidad y aprendizaje continuo. Busco mi primera oportunidad laboral en el sector tecnológico, donde pueda aplicar mis conocimientos y continuar desarrollándome profesionalmente.",
         experiences: [
             {
                 role: "Mesero - Equipo de Servicio",
