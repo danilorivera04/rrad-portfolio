@@ -95,6 +95,7 @@ export const cvTranslations = {
             "Mobile Apps",
             "Machine Learning",
             "Cloud Computing",
+            "Computer Networks",
             "UI / UX",
         ],
         // Etiquetas para los labels de las secciones
@@ -178,6 +179,7 @@ export const cvTranslations = {
             "Aplicaciones Móviles",
             "Machine Learning",
             "Computación en la Nube",
+            "Redes de computadoras",
             "UI / UX",
         ],
         // Etiquetas para los labels de las secciones
