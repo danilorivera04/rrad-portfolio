@@ -47,9 +47,15 @@ export const CVChipList = ({ items, className }) => (
     </div>
 );
 
-export const CVLanguageRow = ({ name, level }) => (
+export const CVLanguageRow = ({ name, level, certificateUrl, certificateLabel }) => (
     <div className="lang-row">
-        <span className="lang-name">{name}</span>
+        {certificateUrl ? (
+            <a className="lang-name lang-certificate" href={certificateUrl} target="_blank" rel="noopener noreferrer" aria-label={certificateLabel} title={certificateLabel}>
+                {name}
+            </a>
+        ) : (
+            <span className="lang-name">{name}</span>
+        )}
         <span className="lang-level">{level}</span>
     </div>
 );

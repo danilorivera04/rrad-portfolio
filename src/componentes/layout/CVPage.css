@@ -659,6 +659,18 @@ body {
     border-radius: 4px;
 }
 
+.cv-view .lang-certificate {
+    text-decoration: underline;
+    text-decoration-color: var(--orange-border);
+    text-underline-offset: 3px;
+}
+
+.cv-view .lang-certificate:hover,
+.cv-view .lang-certificate:focus-visible {
+    color: var(--orange);
+    text-decoration-color: currentColor;
+}
+
 /* Pie de la tarjeta CV. */
 .cv-view .cv-footer {
     border-top: 1px solid var(--border);

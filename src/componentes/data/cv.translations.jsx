@@ -88,7 +88,7 @@ export const cvTranslations = {
         ],
         languages: [
             { name: "Spanish", level: "Native" },
-            { name: "English", level: "B2" },
+            { name: "English", level: "B2", certificateUrl: "/assets/certificados/certificado-ingles.pdf", certificateLabel: "View English certificate (opens in a new tab)" },
         ],
         interests: [
             "Frontend Dev",
@@ -171,7 +171,7 @@ export const cvTranslations = {
         ],
         languages: [
             { name: "Español", level: "Nativo" },
-            { name: "Inglés", level: "B2" },
+            { name: "Inglés", level: "B2", certificateUrl: "/assets/certificados/certificado-ingles.pdf", certificateLabel: "Ver certificado de inglés (se abre en una nueva pestaña)" },
         ],
         interests: [
             "Desarrollo Frontend",
