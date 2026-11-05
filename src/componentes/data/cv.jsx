@@ -182,6 +182,18 @@ export const projects = [
         },
         technologies: ["React", "TypeScript", "Vite", "HTML5", "CSS3", "Supabase", "PostgreSQL", "jsPDF", "Vitest"],
     },
+    {
+        number: "04",
+        name: {
+            en: "Riviera del Sol Real Estate Website",
+            es: "Sitio Web Inmobiliario Riviera del Sol",
+        },
+        description: {
+            en: "A modern, responsive real estate website developed with React and TypeScript to showcase a residential development. Includes bilingual support (Spanish/English), interactive galleries, animations, and an audio guide for each section. Designed with Tailwind CSS to provide accessible navigation that adapts to mobile devices.",
+            es: "Un sitio web inmobiliario moderno y responsivo desarrollado con React y TypeScript para presentar un desarrollo residencial. Incluye soporte bilingüe (español/inglés), galerías interactivas, animaciones y guía de audio por secciones. Diseñado con Tailwind CSS para ofrecer una navegación accesible y adaptable a dispositivos móviles.",
+        },
+        technologies: ["React", "TypeScript", "Tailwind CSS", "Vite", "Motion", "HTML5", "CSS"],
+    },
 
 
 ];
