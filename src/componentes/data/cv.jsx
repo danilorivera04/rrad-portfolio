@@ -170,6 +170,18 @@ export const projects = [
 
         ]
     },
+    {
+        number: "03",
+        name: {
+            en: "Pronósticos entre Cuates",
+            es: "Pronósticos entre Cuates",
+        },
+        description: {
+            en: "A responsive web application for managing sports prediction pools, with prediction entry, combination generation, and access to results and standings. Includes an admin panel for managing tournaments, matchdays, and payments, PDF export, and authentication through Supabase.",
+            es: "Aplicación web responsiva para gestionar quinielas deportivas, con registro de pronósticos, generación de combinaciones y consulta de resultados y clasificaciones. Incluye un panel administrativo para gestionar torneos, jornadas y pagos, exportación a PDF y autenticación mediante Supabase.",
+        },
+        technologies: ["React", "TypeScript", "Vite", "HTML5", "CSS3", "Supabase", "PostgreSQL", "jsPDF", "Vitest"],
+    },
 
 
 ];
