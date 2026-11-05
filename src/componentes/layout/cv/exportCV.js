@@ -4,7 +4,7 @@ export async function exportCV(view, filename) {
     await document.fonts.ready;
 
     const stage = document.createElement('div');
-    stage.style.cssText = 'position:fixed;left:-10000px;top:0;width:210mm;pointer-events:none;';
+    stage.style.cssText = 'position:fixed;left:-10000px;top:0;width:190mm;pointer-events:none;';
     stage.setAttribute('aria-hidden', 'true');
     stage.inert = true;
     const copy = document.createElement('div');
@@ -39,7 +39,9 @@ export async function exportCV(view, filename) {
 
         worker = html2pdf().set({
             filename,
-            margin: 0,
+            // Real page margins are repeated on every sheet. CSS padding alone
+            // only pads the beginning/end of the continuous captured document.
+            margin: [10, 10, 10, 10],
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: {
                 scale: 2.5,

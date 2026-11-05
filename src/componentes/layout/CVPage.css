@@ -702,7 +702,8 @@ body {
 
 /* Copia de exportación A4: el contenido puede crecer sin recortarse. */
 .cv-view.is-exporting {
-    width: 210mm;
+    /* A4 (210mm) minus the PDF's 10mm margin on each side. */
+    width: 190mm;
     padding: 0;
     min-height: auto;
     background: transparent;
@@ -713,8 +714,8 @@ body {
 }
 
 .cv-view.is-exporting :is(#cv-page, .cv-pdf-page) {
-    width: 210mm;
-    min-height: 296mm;
+    width: 190mm;
+    min-height: 276mm;
     max-width: none;
     margin: 0;
     border-radius: 0;
@@ -892,6 +893,8 @@ body {
 }
 
 .cv-view.is-exporting .project-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
     margin-bottom: 12px;
     padding-bottom: 12px;
 }
