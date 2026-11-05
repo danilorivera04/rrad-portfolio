@@ -37,16 +37,19 @@ export async function exportCV(view, filename) {
         [copy, page, ...page.querySelectorAll('.cv-body, .cv-main, .cv-aside, .section')]
             .forEach((element) => element.style.setProperty('height', 'auto'));
 
+        const backgroundColor = getComputedStyle(page).backgroundColor;
+        const backgroundRGB = backgroundColor.match(/[\d.]+/g).slice(0, 3).map(Number);
+        const margin = 10;
         worker = html2pdf().set({
             filename,
             // Real page margins are repeated on every sheet. CSS padding alone
             // only pads the beginning/end of the continuous captured document.
-            margin: [10, 10, 10, 10],
+            margin: [margin, margin, margin, margin],
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: {
                 scale: 2.5,
                 useCORS: true,
-                backgroundColor: getComputedStyle(page).backgroundColor,
+                backgroundColor,
                 windowWidth: 1200,
                 scrollX: 0,
                 scrollY: 0,
@@ -58,10 +61,37 @@ export async function exportCV(view, filename) {
                 avoid: ['.exp-item', '.cert-item', '.project-item', '.aside-section', '.cv-footer'],
             },
         }).from(copy);
+        await worker.toPdf();
+        const pdf = await worker.get('pdf');
+        const canvas = await worker.get('canvas');
+        const pageSize = await worker.get('pageSize');
+        fillPDFMargins(pdf, canvas, pageSize, margin, backgroundRGB);
         await worker.save();
     } finally {
         stage.remove();
         // html2pdf normally removes this after capture; also clean up on errors.
         worker?.prop?.overlay?.remove();
+    }
+}
+
+// html2pdf paints only the content image; the remaining PDF paper is white.
+// Fill the margins and unused end of the final sheet without covering content.
+export function fillPDFMargins(pdf, canvas, pageSize, margin, backgroundRGB) {
+    const pixelsPerPage = Math.floor(canvas.width * pageSize.inner.ratio);
+    const pageCount = pdf.getNumberOfPages();
+    for (let index = 0; index < pageCount; index++) {
+        pdf.setPage(index + 1);
+        const width = pdf.internal.pageSize.getWidth();
+        const height = pdf.internal.pageSize.getHeight();
+        const remainingPixels = canvas.height - index * pixelsPerPage;
+        const contentHeight = remainingPixels < pixelsPerPage
+            ? remainingPixels * pageSize.inner.width / canvas.width
+            : pageSize.inner.height;
+        const contentBottom = margin + contentHeight;
+        pdf.setFillColor(...backgroundRGB);
+        pdf.rect(0, 0, width, margin, 'F');
+        pdf.rect(0, margin, margin, height - margin, 'F');
+        pdf.rect(width - margin, margin, margin, height - margin, 'F');
+        pdf.rect(margin, contentBottom, width - 2 * margin, height - contentBottom, 'F');
     }
 }
