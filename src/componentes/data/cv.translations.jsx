@@ -47,13 +47,29 @@ export const cvTranslations = {
             "Computer Systems Engineering student, nearing graduation, with a specialization in frontend development and knowledge of software development, databases, and network infrastructure. Experienced in developing web and mobile applications using technologies such as React, TypeScript, JavaScript, HTML, CSS, and Kotlin, as well as integrating backend services and databases using Supabase and Firebase. \n\n I have gained hands-on experience in technical support, computer maintenance, and network administration during my professional internship. I am known for my analytical thinking, problem-solving skills, adaptability, and commitment to continuous learning. I am seeking my first professional opportunity in the technology industry, where I can apply my technical knowledge, contribute to organizational goals, and continue growing professionally.",
         experiences: [
             {
-                role: "Waiter - Service Team",
+                role: "Freelance Web Developer",
+                company: "Independent projects",
+                description:
+                    "Develop responsive web applications and websites using React, TypeScript, JavaScript, HTML, and CSS. Build interactive interfaces, integrate databases and backend services with Supabase, deploy web applications, and provide technical support for client projects.",
+            },
+            {
+                role: "Information Technology Intern",
+                company: "H. Ayuntamiento de Ocotlán",
+                date: "Professional Internship",
+                description:
+                    "Performed preventive maintenance and repairs on computers, configured IP addresses, installed software, and diagnosed connectivity issues. Provided technical support to users and helped identify and manage network infrastructure.",
+                tags: [],
+            },
+            {
+                role: "Head Waiter - Service Team",
                 company: "Grupo de Meseros Excelencia",
                 date: "2025 - Present",
                 description:
                     "Customer-facing service role developing strong interpersonal communication, teamwork, and problem-solving skills in a fast-paced environment.",
                 tags: [],
             },
+        ],
+        training: [
             {
                 role: "Bootcamp Participant",
                 company: "Hewlett Packard Enterprise",
@@ -78,7 +94,7 @@ export const cvTranslations = {
             school: "Instituto Tecnologico de Ocotlan",
             year: "Expected 2027",
         },
-        technicalSkills,
+        technicalSkills: technicalSkills("en"),
         softSkills: [
             "Communication",
             "Team Leadership",
@@ -102,6 +118,7 @@ export const cvTranslations = {
         sections: {
             profile: "Profile",
             experience: "Experience",
+            training: "Additional training",
             certifications: "Certifications",
             projects: "Projects",
             education: "Education",
@@ -131,13 +148,29 @@ export const cvTranslations = {
             "Estudiante de Ingeniería en Sistemas Computacionales, próximo a egresar, con especialización en desarrollo frontend y conocimientos en desarrollo de software, bases de datos e infraestructura de redes. Experiencia en el desarrollo de aplicaciones web y móviles utilizando tecnologías como React, TypeScript, JavaScript, HTML, CSS y Kotlin, así como en la integración de servicios backend y bases de datos mediante Supabase y Firebase.\n\nCuento con experiencia práctica en soporte técnico, mantenimiento de equipos y administración de redes adquirida durante mis residencias profesionales. Me caracterizo por mi capacidad de análisis, resolución de problemas, adaptabilidad y aprendizaje continuo. Busco mi primera oportunidad laboral en el sector tecnológico, donde pueda aplicar mis conocimientos y continuar desarrollándome profesionalmente.",
         experiences: [
             {
-                role: "Mesero - Equipo de Servicio",
+                role: "Desarrollador Web Freelance",
+                company: "Proyectos independientes",
+                description:
+                    "Desarrollo de aplicaciones y sitios web responsivos utilizando React, TypeScript, JavaScript, HTML y CSS. Implementación de interfaces interactivas, integración de bases de datos y servicios backend mediante Supabase, despliegue de aplicaciones web y soporte técnico a proyectos desarrollados para clientes.",
+            },
+            {
+                role: "Practicante de Tecnologías de la Información",
+                company: "H. Ayuntamiento de Ocotlán",
+                date: "Residencias Profesionales",
+                description:
+                    "Mantenimiento preventivo y correctivo de equipos de cómputo, configuración de direcciones IP, instalación de software y diagnóstico de problemas de conectividad. Soporte técnico a usuarios y participación en actividades de identificación y administración de infraestructura de red.",
+                tags: [],
+            },
+            {
+                role: "Capitán de Meseros - Equipo de Servicio",
                 company: "Grupo de Meseros Excelencia",
                 date: "2025 - Presente",
                 description:
                     "Rol de servicio cara al cliente desarrollando fuertes habilidades de comunicación interpersonal, trabajo en equipo y resolución de problemas en un entorno dinámico.",
                 tags: [],
             },
+        ],
+        training: [
             {
                 role: "Participante de Bootcamp",
                 company: "Hewlett Packard Enterprise",
@@ -162,7 +195,7 @@ export const cvTranslations = {
             school: "Instituto Tecnológico de Ocotlán",
             year: "Esperado 2027",
         },
-        technicalSkills,
+        technicalSkills: technicalSkills("es"),
         softSkills: [
             "Comunicación",
             "Liderazgo de Equipo",
@@ -186,6 +219,7 @@ export const cvTranslations = {
         sections: {
             profile: "Perfil",
             experience: "Experiencia",
+            training: "Formación complementaria",
             certifications: "Certificaciones",
             projects: "Proyectos",
             education: "Educación",

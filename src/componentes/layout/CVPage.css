@@ -371,9 +371,40 @@ body {
     box-sizing: border-box;
 }
 
+.cv-view .cv-continuation {
+    border-top: 1px solid var(--border);
+}
+
+.cv-view .skill-categories {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.cv-view .skill-categories > div + div {
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+    margin-top: 8px;
+}
+
+.cv-view .skill-categories dt {
+    font-weight: 700;
+}
+
+.cv-view .skill-categories dd {
+    margin: 2px 0 0;
+    color: var(--text-2);
+}
+
 /* Bloques semanticos del contenido principal. */
+.cv-view .cv-list-text {
+    font-size: 14px;
+    color: var(--text-2);
+    line-height: 1.55;
+}
+
 .cv-view .section {
-    margin-bottom: 28px;
+    margin-bottom: 36px;
 }
 
 .cv-view .section:last-child {
@@ -585,7 +616,7 @@ body {
 
 /* Secciones del panel lateral. */
 .cv-view .aside-section {
-    margin-bottom: 24px;
+    margin-bottom: 32px;
 }
 
 .cv-view .aside-section:last-child {
@@ -702,8 +733,8 @@ body {
 
 /* Copia de exportación A4: el contenido puede crecer sin recortarse. */
 .cv-view.is-exporting {
-    /* A4 (210mm) minus the PDF's 10mm margin on each side. */
-    width: 190mm;
+    /* A4 (210mm) minus the PDF's 6mm margin on each side. */
+    width: 198mm;
     padding: 0;
     min-height: auto;
     background: transparent;
@@ -714,8 +745,8 @@ body {
 }
 
 .cv-view.is-exporting :is(#cv-page, .cv-pdf-page) {
-    width: 190mm;
-    min-height: 276mm;
+    width: 198mm;
+    min-height: 284mm;
     max-width: none;
     margin: 0;
     border-radius: 0;
@@ -727,14 +758,51 @@ body {
 }
 
 .cv-view.is-exporting .cv-header {
-    padding: 5px 18px 12px;
+    padding: 5px 16px 8px;
     flex-shrink: 0;
 }
 
 .cv-view.is-exporting .cv-body {
-    flex: 1;
+    flex: none;
     grid-template-columns: minmax(0, 1fr) 60mm;
 }
+
+.cv-view.is-exporting .cv-training {
+    display: grid;
+    grid-template-columns: 0.94fr 1.06fr;
+    column-gap: 18px;
+    padding: 6px 20px;
+}
+
+.cv-view.is-exporting .cv-body:first-of-type .cv-main {
+    padding-bottom: 0;
+}
+
+.cv-view.is-exporting .cv-training .exp-item {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.cv-view.is-exporting .cv-projects-page {
+    break-before: page;
+}
+
+
+.cv-view.is-exporting .section.cv-profile {
+    margin: 0 0 16px;
+}
+
+.cv-view.is-exporting .skill-categories > div + div {
+    margin-top: 7px;
+    padding-top: 7px;
+}
+
+.cv-view.is-exporting .cv-body .section:last-child,
+.cv-view.is-exporting .cv-aside .aside-section:last-child {
+    margin-bottom: 0;
+}
+
 
 .cv-view.is-exporting .cv-main,
 .cv-view.is-exporting .cv-aside {
@@ -757,26 +825,34 @@ body {
 }
 
 .cv-view.is-exporting .header-sub {
-    font-size: 8px;
+    font-size: 11px;
     margin-top: 2px;
 }
 
 .cv-view.is-exporting .header-location {
-    font-size: 8px;
+    font-size: 11px;
     margin-top: 1px;
 }
 
 .cv-view.is-exporting .header-inner {
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: 8px;
+    gap: 6px;
+}
+
+.cv-view.is-exporting .header-sub {
+    letter-spacing: 0.08em;
 }
 
 .cv-view.is-exporting .header-contacts {
     gap: 4px;
 }
 
+.cv-view.is-exporting .personal-data {
+    gap: 4px;
+}
+
 .cv-view.is-exporting .social-title {
-    font-size: 7px;
+    font-size: 11px;
     letter-spacing: 0.16em;
 }
 
@@ -790,7 +866,7 @@ body {
 }
 
 .cv-view.is-exporting .social-link {
-    font-size: 7.5px;
+    font-size: 11px;
     padding: 2px 6px;
     gap: 4px;
 }
@@ -806,10 +882,10 @@ body {
 }
 
 .cv-view.is-exporting .contact-item {
-    font-size: 10px;
+    font-size: 13px;
 }
 
-.cv-view.is-exporting .personal-item { font-size: 10px; }
+.cv-view.is-exporting .personal-item { font-size: 13px; }
 .cv-view.is-exporting[data-theme='dark'] { --text-3: #a8b4c6; }
 .cv-view.is-exporting[data-theme='light'] { --text-3: #62625d; }
 
@@ -822,42 +898,51 @@ body {
 }
 
 .cv-view.is-exporting .section {
-    margin-bottom: 14px;
+    margin-bottom: 24px;
 }
 
 .cv-view.is-exporting .section-label {
-    font-size: 8.5px;
+    font-size: 11px;
     margin-bottom: 8px;
     gap: 8px;
 }
 
 .cv-view.is-exporting .summary-text {
-    font-size: 10.5px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.45;
     padding-left: 10px;
 }
 
 .cv-view.is-exporting .exp-item {
-    margin-bottom: 12px;
-    padding-bottom: 12px;
+    margin-bottom: 9px;
+    padding-bottom: 9px;
+}
+
+.cv-view.is-exporting .exp-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.cv-view.is-exporting .exp-meta {
+    margin: 3px 0 5px;
 }
 
 .cv-view.is-exporting .exp-role {
-    font-size: 12.5px;
+    font-size: 16px;
     line-height: 1.15;
 }
 
 .cv-view.is-exporting .exp-company {
-    font-size: 11px;
+    font-size: 14px;
 }
 
 .cv-view.is-exporting .exp-date {
-    font-size: 9px;
+    font-size: 11px;
     padding: 2px 6px;
 }
 
 .cv-view.is-exporting .exp-desc {
-    font-size: 10px;
+    font-size: 13px;
     line-height: 1.45;
 }
 
@@ -867,7 +952,7 @@ body {
 }
 
 .cv-view.is-exporting .exp-tag {
-    font-size: 8px;
+    font-size: 11px;
     padding: 2px 6px;
 }
 
@@ -877,18 +962,18 @@ body {
 }
 
 .cv-view.is-exporting .cert-num {
-    font-size: 8px;
+    font-size: 11px;
     padding: 1px 4px;
     margin-top: 1px;
 }
 
 .cv-view.is-exporting .cert-name {
-    font-size: 10px;
+    font-size: 13px;
     line-height: 1.25;
 }
 
 .cv-view.is-exporting .cert-issuer {
-    font-size: 9px;
+    font-size: 11px;
     margin-top: 1px;
 }
 
@@ -910,20 +995,20 @@ body {
 }
 
 .cv-view.is-exporting .project-num {
-    font-size: 8px;
+    font-size: 11px;
     padding: 1px 4px;
     margin-top: 1px;
 }
 
 .cv-view.is-exporting .project-name {
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1.15;
 }
 
 .cv-view.is-exporting .project-desc {
-    font-size: 10px;
-    line-height: 1.4;
-    margin: 6px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 8px 0;
 }
 
 .cv-view.is-exporting .project-techs {
@@ -932,57 +1017,62 @@ body {
 }
 
 .cv-view.is-exporting .project-tech {
-    font-size: 8px;
+    font-size: 11px;
     padding: 2px 5px;
 }
 
 .cv-view.is-exporting .aside-section {
-    margin-bottom: 12px;
+    margin-bottom: 24px;
 }
 
 .cv-view.is-exporting .aside-label {
-    font-size: 7px;
+    font-size: 11px;
     margin-bottom: 4px;
     padding-bottom: 2px;
 }
 
+.cv-view.is-exporting .cv-certifications .aside-label {
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
 .cv-view.is-exporting .edu-degree {
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1.2;
     margin-bottom: 2px;
 }
 
 .cv-view.is-exporting .edu-school {
-    font-size: 9px;
+    font-size: 11px;
     margin-bottom: 1px;
 }
 
 .cv-view.is-exporting .edu-year {
-    font-size: 9px;
+    font-size: 11px;
 }
 
 .cv-view.is-exporting .skill-chip {
-    font-size: 9px;
+    font-size: 11px;
     padding: 2px 6px;
     margin: 2px 2px 2px 0;
 }
 
 .cv-view.is-exporting .lang-row {
-    font-size: 10px;
+    font-size: 13px;
     margin-bottom: 5px;
 }
 
 .cv-view.is-exporting .lang-level {
-    font-size: 8px;
+    font-size: 11px;
     padding: 1px 5px;
 }
 
 .cv-view.is-exporting .footer-note {
-    font-size: 7px;
+    font-size: 11px;
 }
 
 .cv-view.is-exporting .footer-link {
-    font-size: 8px;
+    font-size: 11px;
 }
 
 /* Ajustes responsivos para tablet/movil. */

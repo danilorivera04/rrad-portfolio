@@ -3,9 +3,9 @@ import CVToolbar from "./cv/CVToolbar";
 import CVHeader from "./cv/CVHeader";
 import { exportCV } from "./cv/exportCV";
 import {
-    CVChipList,
     CVCertificationItem,
     CVExperienceItem,
+    CVChipList,
     CVLanguageRow,
     CVSection,
     CVProjectItem,
@@ -40,6 +40,7 @@ const CVPage = () => {
         contactLinks,
         profileSummary,
         experiences,
+        training,
         certifications,
         projects,
         education,
@@ -111,7 +112,7 @@ const CVPage = () => {
 
                 <div className="cv-body">
                     <main className="cv-main">
-                        <CVSection label={sections.profile}>
+                        <CVSection className="section cv-profile" label={sections.profile}>
                             <p className="summary-text">{profileSummary}</p>
                         </CVSection>
 
@@ -122,18 +123,14 @@ const CVPage = () => {
                                     {...experience}
                                 />
                             ))}
+                            <div className="cv-training">
+                                {training.map((item) => (
+                                    <CVExperienceItem key={item.role} {...item} />
+                                ))}
+                            </div>
                         </CVSection>
 
-                        <CVSection label={sections.certifications}>
-                            {certifications.map((certification) => (
-                                <CVCertificationItem
-                                    key={certification.number}
-                                    {...certification}
-                                />
-                            ))}
-                        </CVSection>
-
-                        <CVSection label={sections.projects}>
+                        <CVSection className="section cv-projects" label={sections.projects}>
                             {projects.map((project) => (
                                 <CVProjectItem
                                     key={project.number}
@@ -151,14 +148,16 @@ const CVPage = () => {
                             <div className="edu-year">{education.year}</div>
                         </div>
 
-                        <div className="aside-section">
+                        <div className="aside-section cv-technical-skills">
                             <div className="aside-label">{sections.technicalSkills}</div>
-                            <CVChipList items={technicalSkills} className="chips-wrap" />
-                        </div>
-
-                        <div className="aside-section">
-                            <div className="aside-label">{sections.softSkills}</div>
-                            <CVChipList items={softSkills} className="chips-wrap" />
+                            <dl className="skill-categories">
+                                {technicalSkills.map(({ label, skills }) => (
+                                    <div key={label}>
+                                        <dt>{label}</dt>
+                                        <dd>{skills}</dd>
+                                    </div>
+                                ))}
+                            </dl>
                         </div>
 
                         <div className="aside-section">
@@ -166,6 +165,21 @@ const CVPage = () => {
                             {languages.map((lang) => (
                                 <CVLanguageRow key={lang.name} {...lang} />
                             ))}
+                        </div>
+
+                        <div className="aside-section cv-certifications">
+                            <div className="aside-label">{sections.certifications}</div>
+                            {certifications.map((certification) => (
+                                <CVCertificationItem
+                                    key={certification.number}
+                                    {...certification}
+                                />
+                            ))}
+                        </div>
+
+                        <div className="aside-section">
+                            <div className="aside-label">{sections.softSkills}</div>
+                            <CVChipList items={softSkills} className="chips-wrap" />
                         </div>
 
                         <div className="aside-section">

@@ -67,7 +67,21 @@ export const profileSummary =
 
 export const experiences = [
     {
-        role: "Waiter - Service Team",
+        role: "Freelance Web Developer",
+        company: "Independent projects",
+        description:
+            "Develop responsive web applications and websites using React, TypeScript, JavaScript, HTML, and CSS. Build interactive interfaces, integrate databases and backend services with Supabase, deploy web applications, and provide technical support for client projects.",
+    },
+    {
+        role: "Information Technology Intern",
+        company: "H. Ayuntamiento de Ocotlán",
+        date: "Professional Internship",
+        description:
+            "Performed preventive maintenance and repairs on computers, configured IP addresses, installed software, and diagnosed connectivity issues. Provided technical support to users and helped identify and manage network infrastructure.",
+        tags: [],
+    },
+    {
+        role: "Head Waiter - Service Team",
         company: "Grupo de Meseros Excelencia",
         date: "2025 - Present",
         description:
@@ -96,13 +110,45 @@ export const certifications = [
     {
         number: "01",
         name: {
-            en: "Official Scrum Fundamentals Certification",
-            es: "Certificación Oficial de Fundamentos Scrum",
+            en: "Network Addressing and Basic Troubleshooting",
+            es: "Network Addressing and Basic Troubleshooting",
         },
-        issuer: "AIBES",
+        issuer: "Cisco (2025)",
     },
     {
         number: "02",
+        name: {
+            en: "Networking Basics",
+            es: "Networking Basics",
+        },
+        issuer: "Cisco (2025)",
+    },
+    {
+        number: "03",
+        name: {
+            en: "Python Essentials 2",
+            es: "Python Essentials 2",
+        },
+        issuer: "Cisco (2024)",
+    },
+    {
+        number: "04",
+        name: {
+            en: "Cloud Essentials",
+            es: "Cloud Essentials",
+        },
+        issuer: "IBM (2025)",
+    },
+    {
+        number: "05",
+        name: {
+            en: "Official Scrum Fundamentals Certification",
+            es: "Certificación Oficial de Fundamentos Scrum",
+        },
+        issuer: "AIBES (2025)",
+    },
+    {
+        number: "06",
         name: {
             en: "Professional Web Design Complete, Practical Course from Scratch",
             es: "Diseño Web Profesional Curso Completo, Práctico y desde 0",
@@ -110,7 +156,7 @@ export const certifications = [
         issuer: "UDEMY",
     },
     {
-        number: "03",
+        number: "07",
         name: {
             en: "JavaScript TOTAL - From Zero to Web Developer in 18 Days",
             es: "JavaScript TOTAL - De Cero a Programador Web en 18 Días",
@@ -118,7 +164,7 @@ export const certifications = [
         issuer: "UDEMY",
     },
     {
-        number: "04",
+        number: "08",
         name: {
             en: "React JS with TypeScript and Next.js – Full Stack Development Course",
             es: "React JS con TypeScript y Next.js Curso Desarrollo FullStack",
@@ -204,39 +250,21 @@ export const education = {
     year: "Expected 2027",
 };
 
-export const technicalSkills = [
-    "React",
-    "React Router",
-    "Node.js",
-    "TypeScript",
-    "JavaScript",
-    "HTML5 / CSS3",
-    "Tailwind CSS",
-    "Motion",
-    "Vite",
-    "Vitest",
-    "jsPDF",
-    "Supabase",
-    "PostgreSQL",
-    "Java",
-    "Kotlin",
-    "Android",
-    "Android Studio",
-    "Firebase Realtime Database",
-    "Firebase Authentication",
-    "XML",
-    "MVVM Architecture",
-    "RecyclerView",
-    "Navigation Component",
-    "LiveData",
-    "Material Design",
-    "JSON",
-    "Git",
-    "Vercel",
-    "REST APIs",
-    "Scrum",
-    "Figma",
-];
+export const technicalSkills = (language) => {
+    const es = language === "es";
+    return [
+        { label: "Frontend", skills: "React, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS" },
+        { label: es ? "Backend y bases de datos" : "Backend and databases", skills: "Node.js, Supabase, PostgreSQL, Firebase, REST APIs" },
+        { label: es ? "Desarrollo móvil" : "Mobile development", skills: "Kotlin, Android Studio, XML" },
+        { label: es ? "Herramientas" : "Tools", skills: "Git, Vercel, Vite, Figma" },
+        {
+            label: es ? "Redes y soporte" : "Networking and support",
+            skills: es
+                ? "Direccionamiento IP, TCP/IP, mantenimiento y diagnóstico de conectividad"
+                : "IP addressing, TCP/IP, maintenance and connectivity troubleshooting",
+        },
+    ];
+};
 
 export const softSkills = [
     "Communication",

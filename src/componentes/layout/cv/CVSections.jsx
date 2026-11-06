@@ -12,7 +12,7 @@ export const CVExperienceItem = ({ role, company, date, description, tags = [] }
         <div className="exp-role">{role}</div>
         <div className="exp-meta">
             <span className="exp-company">{company}</span>
-            <span className="exp-date">{date}</span>
+            {date && <span className="exp-date">{date}</span>}
         </div>
         <p className="exp-desc">{description}</p>
         {tags.length > 0 ? (

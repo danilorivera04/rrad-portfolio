@@ -4,7 +4,7 @@ export async function exportCV(view, filename) {
     await document.fonts.ready;
 
     const stage = document.createElement('div');
-    stage.style.cssText = 'position:fixed;left:-10000px;top:0;width:190mm;pointer-events:none;';
+    stage.style.cssText = 'position:fixed;left:-10000px;top:0;width:198mm;pointer-events:none;';
     stage.setAttribute('aria-hidden', 'true');
     stage.inert = true;
     const copy = document.createElement('div');
@@ -13,6 +13,21 @@ export async function exportCV(view, filename) {
     const page = view.querySelector('#cv-page').cloneNode(true);
     page.removeAttribute('id');
     page.classList.add('cv-pdf-page');
+    const body = page.querySelector('.cv-body');
+    const training = page.querySelector('.cv-training');
+    const projectsBody = body.cloneNode(false);
+    projectsBody.classList.add('cv-projects-page');
+    const projectsMain = document.createElement('div');
+    projectsMain.className = 'cv-main';
+    projectsMain.append(page.querySelector('.cv-projects'));
+    const projectsAside = page.querySelector('.cv-aside').cloneNode(false);
+    projectsAside.append(page.querySelector('.cv-technical-skills'));
+    const certifications = page.querySelector('.cv-certifications');
+    while (certifications.nextElementSibling) {
+        projectsAside.append(certifications.nextElementSibling);
+    }
+    projectsBody.append(projectsMain, projectsAside);
+    body.after(training, projectsBody);
     copy.append(page);
     stage.append(copy);
     document.body.append(stage);
@@ -39,7 +54,7 @@ export async function exportCV(view, filename) {
 
         const backgroundColor = getComputedStyle(page).backgroundColor;
         const backgroundRGB = backgroundColor.match(/[\d.]+/g).slice(0, 3).map(Number);
-        const margin = 10;
+        const margin = 6;
         worker = html2pdf().set({
             filename,
             // Real page margins are repeated on every sheet. CSS padding alone
