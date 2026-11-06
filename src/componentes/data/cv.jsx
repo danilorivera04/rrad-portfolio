@@ -36,8 +36,8 @@ export const socialLinks = [
 
 export const contactLinks = [
     {
-        label: "proxzteam@gmail.com",
-        href: "mailto:proxzteam@gmail.com",
+        label: "danyanriver@gmail.com",
+        href: "mailto:danyanriver@gmail.com",
     },
     {
         label: "392 106 4092",
@@ -113,7 +113,7 @@ export const certifications = [
             en: "Network Addressing and Basic Troubleshooting",
             es: "Network Addressing and Basic Troubleshooting",
         },
-        issuer: "Cisco (2025)",
+        issuer: "Cisco",
     },
     {
         number: "02",
@@ -121,7 +121,7 @@ export const certifications = [
             en: "Networking Basics",
             es: "Networking Basics",
         },
-        issuer: "Cisco (2025)",
+        issuer: "Cisco",
     },
     {
         number: "03",
@@ -129,7 +129,7 @@ export const certifications = [
             en: "Python Essentials 2",
             es: "Python Essentials 2",
         },
-        issuer: "Cisco (2024)",
+        issuer: "Cisco",
     },
     {
         number: "04",
@@ -137,7 +137,7 @@ export const certifications = [
             en: "Cloud Essentials",
             es: "Cloud Essentials",
         },
-        issuer: "IBM (2025)",
+        issuer: "IBM",
     },
     {
         number: "05",
@@ -145,7 +145,7 @@ export const certifications = [
             en: "Official Scrum Fundamentals Certification",
             es: "Certificación Oficial de Fundamentos Scrum",
         },
-        issuer: "AIBES (2025)",
+        issuer: "AIBES",
     },
     {
         number: "06",
