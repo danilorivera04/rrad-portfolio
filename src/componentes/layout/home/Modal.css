@@ -1,4 +1,8 @@
-body.modal-open {
+html:has(.home-shell) {
+    scrollbar-gutter: stable;
+}
+
+html:has(#overlay) {
     overflow: hidden;
 }
 

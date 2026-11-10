@@ -30,29 +30,6 @@ const Modal = ({ closeModal, trabajo }) => {
     const [slideActual, setSlideActual] = useState(0);
     const [reiniciosAutoplay, setReiniciosAutoplay] = useState(0);
 
-    // Bloquea el scroll del fondo y conserva la posicion actual mientras el modal este abierto.
-    useEffect(() => {
-        const scrollY = window.scrollY;
-        const bodyStyle = document.body.style;
-
-        document.body.classList.add('modal-open');
-        bodyStyle.position = 'fixed';
-        bodyStyle.top = `-${scrollY}px`;
-        bodyStyle.left = '0';
-        bodyStyle.right = '0';
-        bodyStyle.width = '100%';
-
-        return () => {
-            document.body.classList.remove('modal-open');
-            bodyStyle.position = '';
-            bodyStyle.top = '';
-            bodyStyle.left = '';
-            bodyStyle.right = '';
-            bodyStyle.width = '';
-            window.scrollTo(0, scrollY);
-        };
-    }, []);
-
     // Cerrar modal con tecla ESC
     useEffect(() => {
         const handleKeyDown = (e) => {
